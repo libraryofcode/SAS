@@ -13,7 +13,12 @@ exports.run = async (client, message, args) => {
     const thisOwner = resolvedUser1 ? message.guild.members.get(resolvedUser1.id) : null;
   
     if (!botuser.user.bot) return msg.edit('I am not permitted to run this command on human members.');
-    if (client.approved.get(thisUser)) return msg.edit('***Error: This client user is already approved.***');
+    if (client.approved.get(thisUser)) {
+      const clientMessage = message.channel.send('``Purging database entry for this user since it was already verified...``');
+
+      client.approved.delete(thisUser);
+      clientMessage.delete(5000);
+    }
     await botuser.removeRoles(thisRemove, 'Client user was approved by a SAA. (Type 1)');
 
 
@@ -61,7 +66,8 @@ exports.run = async (client, message, args) => {
         username: botuser.user.username,
         type: 2,
         staff: message.member.user.tag,
-        time: thisTime
+        time: thisTime,
+        owner: thisOwner.user.tag
       });
 
       await botuser.addRoles(['477624490134732811', '468759692605128724', '468759793599774731'], 'Client user was approved by a SAA. (Type 2)');
@@ -96,7 +102,8 @@ exports.run = async (client, message, args) => {
         username: botuser.user.username,
         type: 3,
         staff: message.member.user.tag,
-        time: thisTime
+        time: thisTime,
+        owner: thisOwner.user.tag
       });
 
       await botuser.addRoles(['477624490134732811', '468759692605128724', '468759793599774731', '469565725762125824'], 'Client user was approved by a SAA. (Type 3)');
