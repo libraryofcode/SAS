@@ -41,12 +41,22 @@ exports.run = async (client, message, args) => {
       embed1.setFooter(client.user.username, client.user.avatarURL);
       embed1.setTimestamp();
 
+      setTimeout(() => {
+        if (botuser.roles.has('510615955206832134')) {
+          botuser.removeRole('510615955206832134', 'Timeout check function');
+        }
+        if (botuser.roles.has('469506491800485891')) {
+          botuser.removeRole('469506491800485891', 'Timeout check function');
+        }
+      }, 1000);
+
       thisChannel.send(embed1);
+      client.users.get(thisOwner.id).send(embed1);
       message.delete();
       return msg.edit(`✅ ***Successfully verified ${botuser.user.tag} as type 1 client.***`);
     }
 
-    if (args[2] === '2') {
+    else if (args[2] === '2') {
       client.approved.set(thisUser, {
         username: botuser.user.username,
         type: 2,
@@ -67,12 +77,21 @@ exports.run = async (client, message, args) => {
       embed2.setFooter(client.user.username, client.user.avatarURL);
       embed2.setTimestamp();
 
+      setTimeout(() => {
+        if (botuser.roles.has('510615955206832134')) {
+          botuser.removeRole('510615955206832134', 'Timeout check function');
+        }
+        if (botuser.roles.has('469506491800485891')) {
+          botuser.removeRole('469506491800485891', 'Timeout check function');
+        }
+      }, 1000);
+
       thisChannel.send(embed2);
       message.delete();
       return msg.edit(`✅ ***Successfully verified ${botuser.user.tag} as type 2 client.***`);
     }
 
-    if (args[2] === '3') {
+    else if (args[2] === '3') {
       client.approved.set(thisUser, {
         username: botuser.user.username,
         type: 3,
@@ -95,6 +114,14 @@ exports.run = async (client, message, args) => {
 
       thisChannel.send(embed3);
       message.delete();
+      setTimeout(() => {
+        if (botuser.roles.has('510615955206832134')) {
+          botuser.removeRole('510615955206832134', 'Timeout check function');
+        }
+        if (botuser.roles.has('469506491800485891')) {
+          botuser.removeRole('469506491800485891', 'Timeout check function');
+        }
+      }, 1000);
       return msg.edit(`✅ ***Successfully verified ${botuser.user.tag} as type 3 client.***`);
     }
 
@@ -122,6 +149,7 @@ exports.run = async (client, message, args) => {
     errorEmbed.setTimestamp();
     return message.channel.send(errorEmbed);
   }
+
 
 
 
