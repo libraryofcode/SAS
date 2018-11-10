@@ -8,6 +8,9 @@ exports.run = async (client, message, args) => {
   const thisChannel = client.channels.get('510616115144163333');
 
   if (!botuser.user.bot) return msg.edit('I am not permitted to run this command on human members.');
+  if (!args[0]) return msg.edit('I need a client user to deny.');
+
+  
 
   const embed = new Discord.RichEmbed();
   embed.setTitle('CLIENT USER DENIED');
@@ -21,7 +24,7 @@ exports.run = async (client, message, args) => {
   thisChannel.send(embed);
 
   if (client.approved.get(thisUser)) {
-    client.approved.remove(thisUser);
+    client.approved.delete(thisUser);
   }
 
   await botuser.ban({

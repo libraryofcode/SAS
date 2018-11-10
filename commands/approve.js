@@ -9,6 +9,8 @@ exports.run = async (client, message, args) => {
     const thisRemove = botuser.roles.map(r => r.id);
     const thisChannel = client.channels.get('510616115144163333');
     const thisTime = new Date(message.createdAt).toLocaleString('en-us');
+    const resolvedUser1 = (args[1] !== undefined) ? message.guild.members.get(args[1].match(/[0-9]/g).join('')) : null;
+    const thisOwner = resolvedUser1 ? message.guild.members.get(resolvedUser1.id) : null;
   
     if (!botuser.user.bot) return msg.edit('I am not permitted to run this command on human members.');
     if (client.approved.get(thisUser)) return msg.edit('***Error: This client user is already approved.***');
@@ -16,13 +18,14 @@ exports.run = async (client, message, args) => {
 
 
 
-    if (args[1] === '1') {
+    if (args[2] === '1') {
 
       client.approved.set(thisUser, {
         username: botuser.user.username,
         type: 1,
         staff: message.member.user.tag,
-        time: thisTime
+        time: thisTime,
+        owner: thisOwner.user.tag
       });
 
       await botuser.addRoles(['477624490134732811', '468759692605128724'], 'Client user was approved by a SAA. (Type 1)');
@@ -32,6 +35,7 @@ exports.run = async (client, message, args) => {
       embed1.addField('Client User Name', botuser.user.username, true);
       embed1.addField('Client User Mention', `<@!${thisUser}>`, true);
       embed1.addField('Client User ID', thisUser, true);
+      embed1.addField('Client Application Owner', thisOwner.user.tag, true);
       embed1.addField('Type', '1', true);
       embed1.addField('Approved By', message.member.user.tag, true);
       embed1.setFooter(client.user.username, client.user.avatarURL);
@@ -42,7 +46,7 @@ exports.run = async (client, message, args) => {
       return msg.edit(`✅ ***Successfully verified ${botuser.user.tag} as type 1 client.***`);
     }
 
-    if (args[1] === '2') {
+    if (args[2] === '2') {
       client.approved.set(thisUser, {
         username: botuser.user.username,
         type: 2,
@@ -57,6 +61,7 @@ exports.run = async (client, message, args) => {
       embed2.addField('Client User Name', botuser.user.username, true);
       embed2.addField('Client User Mention', `<@!${thisUser}>`, true);
       embed2.addField('Client User ID', thisUser, true);
+      embed2.addField('Client Application Owner', thisOwner.user.tag, true);
       embed2.addField('Type', '2', true);
       embed2.addField('Approved By', message.member.user.tag, true);
       embed2.setFooter(client.user.username, client.user.avatarURL);
@@ -67,7 +72,7 @@ exports.run = async (client, message, args) => {
       return msg.edit(`✅ ***Successfully verified ${botuser.user.tag} as type 2 client.***`);
     }
 
-    if (args[1] === '3') {
+    if (args[2] === '3') {
       client.approved.set(thisUser, {
         username: botuser.user.username,
         type: 3,
@@ -82,6 +87,7 @@ exports.run = async (client, message, args) => {
       embed3.addField('Client User Name', botuser.user.username, true);
       embed3.addField('Client User Mention', `<@!${thisUser}>`, true);
       embed3.addField('Client User ID', thisUser, true);
+      embed3.addField('Client Application Owner', thisOwner.user.tag, true);
       embed3.addField('Type', '3', true);
       embed3.addField('Approved By', message.member.user.tag, true);
       embed3.setFooter(client.user.username, client.user.avatarURL);
@@ -95,7 +101,7 @@ exports.run = async (client, message, args) => {
     else {
       const errorEmbed = new Discord.RichEmbed();
       errorEmbed.setTitle('APPROVAL TYPES');
-      errorEmbed.setDescription('USAGE: `approve [user] [type]`');
+      errorEmbed.setDescription('USAGE: `approve [bot] [owner] [type]`');
       errorEmbed.addField('Type 1', 'Standard bots (other boats, boats)', true);
       errorEmbed.addField('Type 2', 'Regular bots (other boats, boats, regular boats)', true);
       errorEmbed.addField('Type 3', 'Staff bots (other boats, boats, regular boats, staff boats)', true);
@@ -107,7 +113,7 @@ exports.run = async (client, message, args) => {
   } catch (err) {
     const errorEmbed = new Discord.RichEmbed();
     errorEmbed.setTitle('APPROVAL TYPES --- [ERROR]');
-    errorEmbed.setDescription('USAGE: `approve [user] [type]`');
+    errorEmbed.setDescription('USAGE: `approve [bot] [owner] [type]`');
     errorEmbed.addField('Error', err, false);
     errorEmbed.addField('Type 1', 'Standard bots (other boats, boats)', true);
     errorEmbed.addField('Type 2', 'Regular bots (other boats, boats, regular boats)', true);

@@ -22,7 +22,7 @@ exports.run = async (client, message, args) => {
   thisChannel.send(embed);
 
   if (client.approved.get(thisUser)) {
-    client.approved.remove(thisUser);
+    client.approved.delete(thisUser);
   }
 
   client.blackList.set(thisUser, {
