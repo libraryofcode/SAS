@@ -14,7 +14,7 @@ exports.run = async (client, message, args) => {
   
     if (!botuser.user.bot) return msg.edit('I am not permitted to run this command on human members.');
     if (client.approved.get(thisUser)) {
-      const clientMessage = message.channel.send('``Purging database entry for this user since it was already verified...``');
+      const clientMessage = await message.channel.send('``Purging database entry for this user since it was already verified...``');
 
       client.approved.delete(thisUser);
       clientMessage.delete(5000);
