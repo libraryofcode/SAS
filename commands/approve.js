@@ -58,7 +58,7 @@ exports.run = async (client, message, args) => {
       thisChannel.send(embed1);
       client.users.get(thisOwner.id).send(embed1);
       message.delete();
-      return msg.edit(`✅ ***Successfully verified ${botuser.user.tag} as type 1 client.***`);
+      return msg.edit(`✅ ***Successfully verified ${botuser.user.tag} as type 1 client for ${thisOwner.user.tag}.***`);
     }
 
     else if (args[2] === '2') {
@@ -94,7 +94,7 @@ exports.run = async (client, message, args) => {
 
       thisChannel.send(embed2);
       message.delete();
-      return msg.edit(`✅ ***Successfully verified ${botuser.user.tag} as type 2 client.***`);
+      return msg.edit(`✅ ***Successfully verified ${botuser.user.tag} as type 2 client for ${thisOwner.user.tag}.***`);
     }
 
     else if (args[2] === '3') {
@@ -129,7 +129,7 @@ exports.run = async (client, message, args) => {
           botuser.removeRole('469506491800485891', 'Timeout check function');
         }
       }, 1000);
-      return msg.edit(`✅ ***Successfully verified ${botuser.user.tag} as type 3 client.***`);
+      return msg.edit(`✅ ***Successfully verified ${botuser.user.tag} as type 3 client for ${thisOwner.user.tag}.***`);
     }
 
     else {
