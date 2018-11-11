@@ -41,12 +41,12 @@ exports.run = async (client, message, args) => {
 
 exports.conf = {
   enabled: true,
-  aliases: [],
+  aliases: ['ban'],
 };
     
 exports.help = {
-  name: 'deny',
+  name: 'blacklist',
   category: 'System',
-  description: 'Denies a client user.',
-  usage: 'deny'
+  description: 'Blacklists a client user.',
+  usage: 'blacklist'
 };

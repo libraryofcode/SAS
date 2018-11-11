@@ -43,6 +43,12 @@ client.approved = new Enmap({
   fetchAll: true
 });
 
+client.approvedUsers = new Enmap({
+  name: 'approvedUsers',
+  autofetch: true,
+  fetchAll: true
+});
+
 client.whiteList = new Enmap({
   name: 'whiteList',
   autofetch: true,
