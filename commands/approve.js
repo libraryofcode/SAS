@@ -34,11 +34,6 @@ exports.run = async (client, message, args) => {
         ownerID: thisOwner.id
       });
 
-      client.approvedUsers.set(thisOwner, {
-        username: botuser.user.username,
-        type: 1,
-      });
-
       await botuser.addRoles(['477624490134732811', '468759692605128724'], 'Client user was approved by a SAA. (Type 1)');
     
       const embed1 = new Discord.RichEmbed();
@@ -78,10 +73,6 @@ exports.run = async (client, message, args) => {
         ownerID: thisOwner.id
       });
 
-      client.approvedUsers.set(thisOwner, {
-        username: botuser.user.username,
-        type: 2,
-      });
 
       await botuser.addRoles(['477624490134732811', '468759692605128724', '468759793599774731'], 'Client user was approved by a SAA. (Type 2)');
     
@@ -121,10 +112,6 @@ exports.run = async (client, message, args) => {
         ownerID: thisOwner.id
       });
 
-      client.approvedUsers.set(thisOwner, {
-        username: botuser.user.username,
-        type: 3,
-      });
 
       await botuser.addRoles(['477624490134732811', '468759692605128724', '468759793599774731', '469565725762125824'], 'Client user was approved by a SAA. (Type 3)');
     
