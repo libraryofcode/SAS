@@ -23,6 +23,7 @@ exports.run = async (client, message, args) => {
   embed.setTimestamp();
 
   thisChannel.send(embed);
+  message.delete()
 
   if (client.approved.get(thisUser)) {
     client.approved.delete(thisUser);
