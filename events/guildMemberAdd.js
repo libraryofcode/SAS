@@ -24,7 +24,7 @@ module.exports = async (client, member) => {
   }
 
 
-  if (await member.roles.size > 1) {
+  /*if (await member.roles.size > 1) {
     await member.kick('Client user was added with roles.');
     const failEmbed = new Discord.RichEmbed();
     failEmbed.setColor('RED');
@@ -37,11 +37,12 @@ module.exports = async (client, member) => {
     failEmbed.setFooter(client.user.username, client.user.avatarURL);
     failEmbed.setTimestamp();
       
-    return thisChannel.send(failEmbed);
-  } else {
+    return thisChannel.send(failEmbed);*/
+  else {
 
 
     try {
+      if (!member.user.bot) return;
       member.addRole('510615955206832134');
     } catch (err) {
       console.log(err);
