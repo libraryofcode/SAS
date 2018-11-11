@@ -2,41 +2,45 @@ const Discord = require('discord.js');
 
 exports.run = async (client, message, args) => {
   const msg = await message.channel.send('Authorizing...');
-  const resolvedUser = (args[0] !== undefined) ? message.guild.members.get(args[0].match(/[0-9]/g).join('')) : null;
-  const botuser = resolvedUser ? message.guild.members.get(resolvedUser.id) : null;
-  const thisUser = botuser.id;
-  const thisChannel = client.channels.get('510616115144163333');
+  try {
+    const resolvedUser = (args[0] !== undefined) ? message.guild.members.get(args[0].match(/[0-9]/g).join('')) : null;
+    const botuser = resolvedUser ? message.guild.members.get(resolvedUser.id) : null;
+    const thisUser = botuser.id;
+    const thisChannel = client.channels.get('510616115144163333');
 
-  if (!botuser.user.bot) return msg.edit('I am not permitted to run this command on human members.');
-  if (client.blackList.get(thisUser)) return msg.edit('***Error: This user is already blacklisted.***');
+    if (!botuser.user.bot) return msg.edit('I am not permitted to run this command on human members.');
+    if (client.blackList.get(thisUser)) return msg.edit('***Error: This user is already blacklisted.***');
 
-  const embed = new Discord.RichEmbed();
-  embed.setTitle('CLIENT USER BLACKLISTED');
-  embed.addField('Client User Name', botuser.user.username, true);
-  embed.addField('Client User Mention', `<@!${thisUser}>`, true);
-  embed.addField('Client User ID', thisUser, true);
-  embed.addField('Blacklisted By', message.member.user.tag, true);
-  embed.setFooter(client.user.username, client.user.username);
-  embed.setTimestamp();
+    const embed = new Discord.RichEmbed();
+    embed.setTitle('CLIENT USER BLACKLISTED');
+    embed.addField('Client User Name', botuser.user.username, true);
+    embed.addField('Client User Mention', `<@!${thisUser}>`, true);
+    embed.addField('Client User ID', thisUser, true);
+    embed.addField('Blacklisted By', message.member.user.tag, true);
+    embed.setFooter(client.user.username, client.user.username);
+    embed.setTimestamp();
 
-  thisChannel.send(embed);
+    thisChannel.send(embed);
 
-  if (client.approved.get(thisUser)) {
-    client.approved.delete(thisUser);
-  }
+    if (client.approved.get(thisUser)) {
+      client.approved.delete(thisUser);
+    }
 
-  client.blackList.set(thisUser, {
-    reason: args[1],
-    staff: message.member.user.tag
-  });
+    client.blackList.set(thisUser, {
+      reason: args[1],
+      staff: message.member.user.tag
+    });
 
-  await botuser.ban({
-    days: 7,
-    reason: 'Client user was denied by an SAA. (softban)'
-  });
+    await botuser.ban({
+      days: 7,
+      reason: 'Client user was denied by an SAA. (softban)'
+    });
   
 
-  msg.edit(`✅ ***${botuser.user.tag} has been denied.***`);
+    msg.edit(`✅ ***${botuser.user.tag} has been denied.***`);
+  } catch (err) {
+    msg.edit(`***Error: ${err}***`);
+  }
 };
 
 exports.conf = {
