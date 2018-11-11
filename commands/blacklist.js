@@ -8,7 +8,7 @@ exports.run = async (client, message, args) => {
     const thisUser = botuser.id;
     const thisChannel = client.channels.get('510616115144163333');
 
-    if (!botuser.user.bot) return msg.edit('I am not permitted to run this command on human members.');
+    if (!botuser.user.bot) throw new EvalError('UNAUTHORIZED');
     if (client.blackList.get(thisUser)) return msg.edit('***Error: This user is already blacklisted.***');
 
     const embed = new Discord.RichEmbed();
@@ -39,7 +39,7 @@ exports.run = async (client, message, args) => {
 
     msg.edit(`✅ ***${botuser.user.tag} has been denied.***`);
   } catch (err) {
-    msg.edit(`***Error: ${err}***`);
+    msg.edit(`\`ERROR\`\n ***${err}***`);
   }
 };
 
