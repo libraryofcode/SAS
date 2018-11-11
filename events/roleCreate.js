@@ -10,6 +10,7 @@ module.exports = async (client, role) => {
     role.guild.members.get(thisRole[0]).kick('Managed role was created and client is not authorized.');
     const embed = new Discord.RichEmbed();
     embed.setTitle('AUTO-KICKED UNAUTHORIZED CLIENT');
+    embed.setColor('RED');
     embed.setDescription('Auto-kicked an unauthorized client because the client user had a managed role upon server join.');
     try {
       embed.addField('Client User Name', role.guild.members.get(thisRole[0]).user.username, true);

@@ -30,13 +30,20 @@ exports.run = async (client, message, args) => {
         type: 1,
         staff: message.member.user.tag,
         time: thisTime,
-        owner: thisOwner.user.tag
+        owner: thisOwner.user.tag,
+        ownerID: thisOwner.id
+      });
+
+      client.approvedUsers.set(thisOwner, {
+        username: botuser.user.username,
+        type: 1,
       });
 
       await botuser.addRoles(['477624490134732811', '468759692605128724'], 'Client user was approved by a SAA. (Type 1)');
     
       const embed1 = new Discord.RichEmbed();
       embed1.setTitle('CLIENT USER APPROVED');
+      embed1.setColor('GREEN');
       embed1.addField('Client User Name', botuser.user.username, true);
       embed1.addField('Client User Mention', `<@!${thisUser}>`, true);
       embed1.addField('Client User ID', thisUser, true);
@@ -67,13 +74,20 @@ exports.run = async (client, message, args) => {
         type: 2,
         staff: message.member.user.tag,
         time: thisTime,
-        owner: thisOwner.user.tag
+        owner: thisOwner.user.tag,
+        ownerID: thisOwner.id
+      });
+
+      client.approvedUsers.set(thisOwner, {
+        username: botuser.user.username,
+        type: 2,
       });
 
       await botuser.addRoles(['477624490134732811', '468759692605128724', '468759793599774731'], 'Client user was approved by a SAA. (Type 2)');
     
       const embed2 = new Discord.RichEmbed();
       embed2.setTitle('CLIENT USER APPROVED');
+      embed2.setColor('GREEN');
       embed2.addField('Client User Name', botuser.user.username, true);
       embed2.addField('Client User Mention', `<@!${thisUser}>`, true);
       embed2.addField('Client User ID', thisUser, true);
@@ -103,13 +117,20 @@ exports.run = async (client, message, args) => {
         type: 3,
         staff: message.member.user.tag,
         time: thisTime,
-        owner: thisOwner.user.tag
+        owner: thisOwner.user.tag,
+        ownerID: thisOwner.id
+      });
+
+      client.approvedUsers.set(thisOwner, {
+        username: botuser.user.username,
+        type: 3,
       });
 
       await botuser.addRoles(['477624490134732811', '468759692605128724', '468759793599774731', '469565725762125824'], 'Client user was approved by a SAA. (Type 3)');
     
       const embed3 = new Discord.RichEmbed();
       embed3.setTitle('CLIENT USER APPROVED');
+      embed3.setColor('GREEN');
       embed3.addField('Client User Name', botuser.user.username, true);
       embed3.addField('Client User Mention', `<@!${thisUser}>`, true);
       embed3.addField('Client User ID', thisUser, true);

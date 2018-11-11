@@ -13,6 +13,7 @@ exports.run = async (client, message, args) => {
 
     const embed = new Discord.RichEmbed();
     embed.setTitle('CLIENT USER BLACKLISTED');
+    embed.setColor('RED');
     embed.addField('Client User Name', botuser.user.username, true);
     embed.addField('Client User Mention', `<@!${thisUser}>`, true);
     embed.addField('Client User ID', thisUser, true);

@@ -14,6 +14,7 @@ exports.run = async (client, message, args) => {
 
   const embed = new Discord.RichEmbed();
   embed.setTitle('CLIENT USER DENIED');
+  embed.setColor('ORANGE');
   embed.addField('Client User Name', botuser.user.username, true);
   embed.addField('Client User Mention', `<@!${thisUser}>`, true);
   embed.addField('Client User ID', thisUser, true);

@@ -10,6 +10,7 @@ module.exports = async (client, member) => {
     });
     const failEmbed1 = new Discord.RichEmbed();
     failEmbed1.addTitle('AUTO-KICKED UNAUTHORIZED ADDED CLIENT');
+    failEmbed1.setColor('RED');
     failEmbed1.setDescription('Client user was added with additional permissions.');
     failEmbed1.addField('Client User Name', `${member.user.username}#${member.user.discriminator}`, true);
     failEmbed1.addField('Client User Mention', `<@!${member.id}>`, true);
@@ -26,6 +27,7 @@ module.exports = async (client, member) => {
   if (await member.roles.size > 1) {
     await member.kick('Client user was added with roles.');
     const failEmbed = new Discord.RichEmbed();
+    failEmbed.setColor('RED');
     failEmbed.addTitle('AUTO-KICKED UNAUTHORIZED ADDED CLIENT');
     failEmbed.setDescription('Client user was added with additional permissions.');
     failEmbed.addField('Client User Name', `${member.user.username}#${member.user.discriminator}`, true);
@@ -48,6 +50,7 @@ module.exports = async (client, member) => {
   
     const embed = new Discord.RichEmbed();
     embed.setTitle('UNAUTHORIZED CLIENT ADDED');
+    embed.setColor('BLUE');
     embed.addField('Client User Name', `${member.user.username}#${member.user.discriminator}`, true);
     embed.addField('Client User Mention', `<@!${member.id}>`, true);
     embed.addField('Client User ID', member.id, true);
