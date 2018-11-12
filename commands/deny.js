@@ -19,7 +19,7 @@ exports.run = async (client, message, args) => {
   embed.addField('Client User Mention', `<@!${thisUser}>`, true);
   embed.addField('Client User ID', thisUser, true);
   embed.addField('Denied By', message.member.user.tag, true);
-  embed.setFooter(client.user.username, client.user.username);
+  embed.setFooter(client.user.username, client.user.avatarURL);
   embed.setTimestamp();
 
   thisChannel.send(embed);
