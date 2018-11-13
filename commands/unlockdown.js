@@ -67,7 +67,11 @@ exports.run = async (client, message, args) => {
 
   const embed = new Discord.RichEmbed();
   embed.setTitle('UNLOCKED SERVER');
-  embed.setTitle('Unlocked by', message.member.user.tag, true);
+  try {
+    embed.setTitle('Unlocked by', message.member.user.tag, true);
+  } catch (err) {
+    embed.setTitle('Unlocked by', err, true);
+  }
   embed.setTitle('Reason', args.join(' '));
   embed.setColor('GREEN');
   embed.setFooter(client.user.username, client.user.avatarURL);
