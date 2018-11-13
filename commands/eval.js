@@ -38,5 +38,5 @@ exports.help = {
   name: 'eval',
   category: 'System',
   description: 'Evaluates code.',
-  usage: 'help'
+  usage: 'eval'
 };
