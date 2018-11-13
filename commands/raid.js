@@ -20,7 +20,7 @@ exports.run = async (client, message, args) => {
     onEmbed.setFooter(client.user.username, client.user.avatarURL);
     onEmbed.setTimestamp();
     
-    thisChannel.send(onEmbed);
+    return thisChannel.send(onEmbed);
   }
 
   if (args[0] === 'off') {
@@ -40,7 +40,7 @@ exports.run = async (client, message, args) => {
     offEmbed.setFooter(client.user.username, client.user.avatarURL);
     offEmbed.setTimestamp();
       
-    thisChannel.send(offEmbed);
+    return thisChannel.send(offEmbed);
   }
   else {
     msg.edit('pls choose an option kthx');
