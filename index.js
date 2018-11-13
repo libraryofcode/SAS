@@ -7,7 +7,6 @@ const Discord = require('discord.js');
 const { promisify } = require('util');
 const readdir = promisify(require('fs').readdir);
 const Enmap = require('enmap');
-//const EnmapLevel = require('enmap-sqlite'); //eslint-disable-line no-unused-vars
 
 const client = new Discord.Client({
   fetchAllMembers: true,
@@ -15,9 +14,6 @@ const client = new Discord.Client({
 
 
 client.config = require('./config.json');
-// client.config.token contains the bot's token
-// client.config.prefix contains the message prefix
-//k
 
 client.logger = require('./modules/Logger');
 
@@ -29,7 +25,8 @@ client.aliases = new Enmap();
 
 client.settings = new Enmap({
   name: 'settings', 
-  autoFetch: true});
+  autoFetch: true
+});
 
 client.blackList = new Enmap({
   name: 'blackList',
@@ -52,6 +49,12 @@ client.approvedUsers = new Enmap({
 client.whiteList = new Enmap({
   name: 'whiteList',
   autofetch: true,
+  fetchAll: true
+});
+
+client.raidMode = new Enmap({
+  name: 'raidMode', 
+  autoFetch: true,
   fetchAll: true
 });
 
@@ -78,9 +81,7 @@ const init = async () => {
     client.on(eventName, event.bind(null, client));
   });
 
-  // Generate a cache of client permissions for pretty perm names in commands.np
 
-  // Here we login the client.
   client.login(client.config.token);
 
 };
