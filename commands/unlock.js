@@ -6,7 +6,7 @@ exports.run = async (client, message, args) => {
   const resolvedChannel = (args[0] !== undefined) ? client.channels.get(args[0].match(/[0-9]/g).join('')) : null;
   const thisChannel0 = resolvedChannel ? message.guild.members.get(resolvedChannel.id) : null;
 
-  const thisChannel = thisChannel0;
+  const thisChannel = thisChannel0.id;
   try {
     thisChannel.overwritePermissions(thisChannel, {
       SEND_MESSAGES: true
