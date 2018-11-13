@@ -1,11 +1,34 @@
 const Discord = require('discord.js');
 
 module.exports = async (client, member) => {
+  const thisChannel = client.channels.get('510616115144163333');
+
+  if (client.raidMode.get('446067825673633794') === true) {
+
+    member.send('***The Library of Code is under a raid mode.***\n Hi, we do apologize for the inconvience. You have been softbanned from the server because the server is in raid mode. If you are reading this that means you are not a bot. Simply wait a couple of minutes before joining back.\n You may also DM <@!278620217221971968> for assistance.');
+    await member.ban({
+      days: 7,
+      reason: 'Guild member was banned due to raidmode.'
+    });
+  
+    await client.guilds.get().unban(member, {
+      reason: 'Ban was a softban.'
+    });
+
+    const banEmbed = new Discord.RichEmbed();
+    banEmbed.setTitle('AUTO-SOFTBANNED USER DUE TO RAID MODE');
+    banEmbed.setColor('RED');
+    banEmbed.addField('Guild Member', member.user.tag, true);
+    banEmbed.addField('Guild Member ID', member.id, true);
+    banEmbed.setFooter(client.user.username, client.user.avatarURL);
+    banEmbed.setTimestamp();
+
+    return thisChannel.send(banEmbed);
+  }
 
   if (!member.user.bot) {
     return client.channels.get('485680288123584525').send(`Hi <@!${member.id}>! Welcome to Library of Code. You can find all of our rules in the "Welcome Center" category, and assign your own roles in <#506977089250000896>. If you need any help, DM <@!457750238208327691>.`);
   }
-  const thisChannel = client.channels.get('510616115144163333');
 
   if (client.blackList.get(member.id)) {
     await member.ban({
