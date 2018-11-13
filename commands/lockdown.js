@@ -63,7 +63,7 @@ exports.run = async (client, message, args) => {
     msg.edit(err);
   }
 
-  msg.edit('✅ ***Successfully lockeded the server.***');
+  msg.edit('✅ ***Successfully locked the server.***');
 
   const embed = new Discord.RichEmbed();
   embed.setTitle('LOCKED SERVER');
