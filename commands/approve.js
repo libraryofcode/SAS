@@ -34,7 +34,7 @@ exports.run = async (client, message, args) => {
         ownerID: thisOwner.id
       });
 
-      await botuser.addRoles(['477624490134732811', '468759692605128724'], 'Client user was approved by a SAA. (Type 1)');
+      await botuser.addRoles(['477624490134732811', '468759692605128724'], 'Client user was approved by a SAA. (PRE)');
     
       const embed1 = new Discord.RichEmbed();
       embed1.setTitle('CLIENT USER APPROVED');
