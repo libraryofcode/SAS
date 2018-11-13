@@ -43,6 +43,18 @@ exports.run = async (client, message, args) => {
     thisChannel.send(offEmbed);
   }
   else {
-    msg.edit('pls choose an option kthx')
+    msg.edit('pls choose an option kthx');
   }
+};
+
+exports.conf = {
+  enabled: true,
+  aliases: [],
+};
+      
+exports.help = {
+  name: 'raid',
+  category: 'System',
+  description: 'Enables/Disables raid mode.',
+  usage: 'raid on/off [reason]'
 };
