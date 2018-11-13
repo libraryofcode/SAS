@@ -63,16 +63,16 @@ exports.run = async (client, message, args) => {
     msg.edit(err);
   }
 
-  msg.edit('✅: ***Successfully locked the server.***');
+  msg.edit('✅ ***Successfully lockeded the server.***');
 
   const embed = new Discord.RichEmbed();
   embed.setTitle('LOCKED SERVER');
+  embed.addField('Locked by', message.member.user.tag, true);
   try {
-    embed.setTitle('Locked by', message.member.user.tag, true);
+    embed.addField('Reason', args.join(' '));
   } catch (err) {
-    embed.setTitle('Locked by', err, true);
+    embed.addField('Reason', err, true);
   }
-  embed.setTitle('Reason', args.join(' '));
   embed.setColor('ORANGE');
   embed.setFooter(client.user.username, client.user.avatarURL);
   embed.setTimestamp();

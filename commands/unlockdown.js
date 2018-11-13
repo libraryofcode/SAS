@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 exports.run = async (client, message, args) => {
      
   message.delete();
-  const msg = await message.channel.send('Locking...');  
+  const msg = await message.channel.send('Unlocking...');  
   try {
   
     client.channels.get('485680288123584525').overwritePermissions('446067825673633794', {
@@ -63,16 +63,16 @@ exports.run = async (client, message, args) => {
     msg.edit(err);
   }
   
-  msg.edit('✅: ***Successfully unlock the server.***');
+  msg.edit('✅ ***Successfully unlocked the server.***');
 
   const embed = new Discord.RichEmbed();
   embed.setTitle('UNLOCKED SERVER');
+  embed.addField('Unlocked by', message.member.user.tag, true);
   try {
-    embed.setTitle('Unlocked by', message.member.user.tag, true);
+    embed.addField('Reason', args.join(' '));
   } catch (err) {
-    embed.setTitle('Unlocked by', err, true);
+    embed.addField('Reason', err, true);
   }
-  embed.setTitle('Reason', args.join(' '));
   embed.setColor('GREEN');
   embed.setFooter(client.user.username, client.user.avatarURL);
   embed.setTimestamp();
