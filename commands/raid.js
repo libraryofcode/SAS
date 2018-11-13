@@ -7,6 +7,7 @@ exports.run = async (client, message, args) => {
     if (client.raidMode.get(message.guild.id) === 'true') return msg.edit('Raid mode is already on.');
     client.raidMode.set(message.guild.id, true);
     msg.edit('***Raid Mode has been enabled, all incoming users will be softbanned.***');
+    message.delete();
 
     const onEmbed = new Discord.RichEmbed();
     onEmbed.setTitle('RAID MODE ENABLED');
@@ -27,6 +28,7 @@ exports.run = async (client, message, args) => {
     if (client.raidMode.get(message.guild.id) === 'false') return msg.edit('Raid mode is already off.');
     client.raidMode.set(message.guild.id, false);
     msg.edit('***Raid mode has been disabled.***');
+    message.delete();
 
     const offEmbed = new Discord.RichEmbed();
     offEmbed.setTitle('RAID MODE DISABLED');
