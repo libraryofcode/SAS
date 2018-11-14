@@ -11,7 +11,7 @@ module.exports = async (client, member) => {
       reason: 'Guild member was banned due to raidmode.'
     });
   
-    await client.guilds.get().unban(member, {
+    await client.guilds.get('446067825673633794').unban(member, {
       reason: 'Ban was a softban.'
     });
 
