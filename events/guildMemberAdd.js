@@ -27,7 +27,7 @@ module.exports = async (client, member) => {
   }
 
   if (!member.user.bot) {
-    return client.channels.get('485680288123584525').send(`Hi <@!${member.id}>! Welcome to Library of Code. You can find all of our rules in the "Welcome Center" category, and assign your own roles in <#506977089250000896>. If you need any help, DM <@!457750238208327691>.`);
+    return client.channels.get('513353554833178634').send(`Hi <@!${member.id}>! Welcome to Library of Code. You can find all of our rules in the "Welcome Center" category, and assign your own roles in <#506977089250000896>. If you need any help, DM <@!457750238208327691>.`);
   }
 
   if (client.blackList.get(member.id)) {
