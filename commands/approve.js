@@ -162,7 +162,7 @@ exports.run = async (client, message, args) => {
     errorEmbed.addField('Type 3', 'Staff bots (other boats, boats, regular boats, staff boats)', true);
     errorEmbed.setFooter(client.user.username, client.user.avatarURL);
     errorEmbed.setTimestamp();
-    return message.channel.send(errorEmbed);
+    return msg.edit(errorEmbed);
   }
 
 
