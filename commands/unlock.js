@@ -4,7 +4,7 @@ exports.run = async (client, message, args) => {
 
   //const thisChannel = client.channels.get(args[0]);
   const resolvedChannel = (args[0] !== undefined) ? client.channels.get(args[0].match(/[0-9]/g).join('')) : null;
-  const thisChannel0 = resolvedChannel ? message.guild.members.get(resolvedChannel.id) : null;
+  const thisChannel0 = resolvedChannel ? client.channels.get(resolvedChannel.id) : null;
 
   const thisChannel = thisChannel0.id;
   try {

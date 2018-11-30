@@ -89,7 +89,7 @@ module.exports = (client) => {
   });
 
   process.on('unhandledRejection', err => {
-    client.logger.error(`Unhandled Rejection Error: ${err}`);
+    client.logger.error(`Unhandled Rejection Error: ${err.stack}`);
     //client.channels.get('503374059044601872').send(err);
   });
 };
