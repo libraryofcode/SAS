@@ -102,6 +102,7 @@ setTimeout(() => {
 
   app.get('/client/:id', function(req, res) {
     const thisUser = req.params.id;
+    if (req.headers.authorization !== '446067825673633794') return res.status(404).send('Unauthorized access.');
 
     const thisObject = {
       client: {
