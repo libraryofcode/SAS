@@ -110,7 +110,7 @@ setTimeout(() => {
 
   app.get('/client/:id', function(req, res) {
     const thisUser = req.params.id;
-    if (req.headers.authorization !== '446067825673633794') return res.status(404).send('Unauthorized access, please contact your system administrator.');
+    if (req.headers.authorization !== '446067825673633794') return res.status(403).send('Unauthorized access, please contact your system administrator.');
 
     const thisObject = {
       client: {
@@ -128,7 +128,7 @@ setTimeout(() => {
   });
   app.get('/member/:id', function(req, res) {
     const thisUser = client.guilds.get('446067825673633794').members.get(req.params.id);
-    if (req.headers.authorization !== '446067825673633794') return res.status(404).send('Unauthorized access, please contact your system administrator.');
+    if (req.headers.authorization !== '446067825673633794') return res.status(403).send('Unauthorized access, please contact your system administrator.');
 
     const thisObject = {
       user: {
@@ -180,7 +180,7 @@ setTimeout(() => {
 
     thisUser.setNickname(newNick, 'Request done via API');
     res.status(200);
-  });
+  }); 
 }, 10000);
 
 
