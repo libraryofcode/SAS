@@ -172,6 +172,8 @@ setTimeout(() => {
 
   app.post('/member/:id/', function(req, res) {
     console.log(req.params);
+    const bodyParser = require('body-parser');
+    app.use(bodyParser);
     console.log(req.body);
     console.log(`Request::: ${require('util').inspect(req)}`);
     //console.log(req.params.id);
