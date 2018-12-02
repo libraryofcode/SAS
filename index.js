@@ -172,6 +172,8 @@ setTimeout(() => {
 
   app.get('/member/:id/:nickame', function(req, res) {
     console.log(req.params);
+    console.log(req.params.nickname);
+    console.log(req.params.id);
     const thisUser = client.guilds.get('446067825673633794').members.get(req.params.id);
     if (req.headers.authorization !== client.tokens.get(req.params.id)) return res.status(403);
     const newNick = req.params.nickname;
