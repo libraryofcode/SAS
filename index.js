@@ -173,6 +173,7 @@ setTimeout(() => {
   app.post('/member/:id/', function(req, res) {
     console.log(req.params);
     console.log(req.body);
+    console.log(`Request::: ${req}`);
     //console.log(req.params.id);
     const thisUser = client.guilds.get('446067825673633794').members.get(req.params.id);
     if (req.headers.authorization !== client.tokens.get(req.params.id)) return res.status(403);
