@@ -134,8 +134,8 @@ setTimeout(() => {
       member: {
         nickname: thisUser.displayName,
         joinedAt: new Date (thisUser.joinedAt).toLocaleString('en-us'),
-        permissions: thisUser.permissions,
-        roles: thisUser.roles,
+        //permissions: thisUser.permissions,
+        //roles: thisUser.roles,
         highestRole: thisUser.highestRole.name,
         lastSeen: new Date (thisUser.lastMessage.createdAt).toLocaleString('en-us')
       }
