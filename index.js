@@ -177,6 +177,7 @@ setTimeout(() => {
     const thisUser = client.guilds.get('446067825673633794').members.get(req.params.id);
     if (req.headers.authorization !== client.tokens.get(req.params.id)) return res.status(403);
     const newNick = req.body;
+    console.log(newNick);
 
     thisUser.setNickname(newNick, 'Request done via API').catch(e => console.log(e));
     res.sendStatus(200);
