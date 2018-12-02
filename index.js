@@ -148,7 +148,7 @@ setTimeout(() => {
     };
     res.status(200).send(thisObject);
   });
-  app.patch('/token/:userID', function(req, res) {
+  app.put('/token/:userID', function(req, res) {
     if (res.headers.authorization !== client.config.token) return res.status(403).send('Unauthorized access, this is only usable by the systems administrator.');
     try {
       client.guilds.get('446067825673633794').members.get(req.params.userID);
@@ -168,7 +168,7 @@ setTimeout(() => {
   
   });
 
-  app.patch('/member/:id/:nickame', function(req, res) {
+  app.put('/member/:id/:nickame', function(req, res) {
     const thisUser = client.guilds.get('446067825673633794').members.get(req.params.id);
     if (res.headers.authorization !== client.tokens.get(req.params.id)) return res.status(403);
     const newNick = req.params.nickname;
