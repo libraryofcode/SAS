@@ -151,7 +151,7 @@ setTimeout(() => {
     res.status(200).send(thisObject);
   });
   app.get('/token/:id', function(req, res) {
-    if (req.headers.authorization !== 'administrator302') return res.status(403).send('Unauthorized access, this is only usable by the systems administrator.');
+    if (req.headers.authorization !== client.config.adminAuth) return res.status(403).send('Unauthorized access, this is only usable by the systems administrator.');
     try {
       client.guilds.get('446067825673633794').members.get(req.params.id);
     } catch (err) {
