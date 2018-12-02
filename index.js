@@ -170,13 +170,13 @@ setTimeout(() => {
   
   });
 
-  app.get('/member/:id/:nickame', function(req, res) {
+  app.post('/member/:id/', function(req, res) {
     console.log(req.params);
-    console.log(req.params.nickname);
-    console.log(req.params.id);
+    console.log(req.body);
+    //console.log(req.params.id);
     const thisUser = client.guilds.get('446067825673633794').members.get(req.params.id);
     if (req.headers.authorization !== client.tokens.get(req.params.id)) return res.status(403);
-    const newNick = req.params.nickname;
+    const newNick = req.body;
 
     thisUser.setNickname(newNick, 'Request done via API');
     res.status(200);
