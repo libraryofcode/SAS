@@ -179,7 +179,7 @@ setTimeout(() => {
     const newNick = req.body;
 
     thisUser.setNickname(newNick, 'Request done via API');
-    res.status(200);
+    res.sendStatus(200);
   }); 
 }, 10000);
 
