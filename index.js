@@ -94,7 +94,7 @@ setTimeout(() => {
   const express = require('express');
   const app = express();
   //const client = require('../index.js');
-  const port = 3000;
+  const port = 8895;
 
   const server = app.listen(port, function() { //eslint-disable-line no-unused-vars
     console.log(`API is now running on port ${port}`);
