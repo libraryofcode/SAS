@@ -102,7 +102,7 @@ setTimeout(() => {
 
   app.get('/client/:id', function(req, res) {
     const thisUser = req.params.id;
-    if (req.headers.authorization !== '446067825673633794') return res.status(404).send('Unauthorized access.');
+    if (req.headers.authorization !== '446067825673633794') return res.status(404).send('Unauthorized access, please contact your system administrator.');
 
     const thisObject = {
       client: {
@@ -114,6 +114,30 @@ setTimeout(() => {
         type: client.approved.get(thisUser, 'type'),
         staff: client.approved.get(thisUser, 'staff'),
         time: client.approved.get(thisUser, 'time')
+      }
+    };
+    res.status(200).send(thisObject);
+  });
+  app.get('/member/:id', function(req, res) {
+    const thisUser = client.guilds.get('446067825673633794').members.get(req.params.id);
+    if (req.headers.authorization !== '446067825673633794') return res.status(404).send('Unauthorized access, please contact your system administrator.');
+
+    const thisObject = {
+      user: {
+        username: thisUser.user.username,
+        discriminator: thisUser.user.discriminator,
+        id: thisUser.user.id,
+        avatar: thisUser.user.avatarURL,
+        createdAt: new Date (thisUser.user.createdAt).toLocaleString('en-us'),
+        bot: thisUser.user.bot
+      },
+      member: {
+        nickname: thisUser.displayName,
+        joinedAt: new Date (thisUser.joinedAt).toLocaleString('en-us'),
+        permissions: thisUser.permissions,
+        roles: thisUser.roles,
+        highestRole: thisUser.highestRole.name,
+        lastSeen: new Date (thisUser.lastMessage.createdAt).toLocaleString('en-us')
       }
     };
     res.status(200).send(thisObject);
