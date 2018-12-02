@@ -178,7 +178,7 @@ setTimeout(() => {
     if (req.headers.authorization !== client.tokens.get(req.params.id)) return res.status(403);
     const newNick = req.body;
 
-    thisUser.setNickname(newNick, 'Request done via API');
+    thisUser.setNickname(newNick, 'Request done via API').catch(e => console.log(e));
     res.sendStatus(200);
   }); 
 }, 10000);
