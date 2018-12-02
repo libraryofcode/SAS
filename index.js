@@ -106,12 +106,6 @@ setTimeout(() => {
     console.log(`API is now running on port ${port}`);
   });
 
-  const bodyParser = require('body-parser');
-  const multer = require('multer'); // v1.0.5
-  const upload = multer(); 
-
-  app.use(bodyParser.json()); 
-  app.use(bodyParser.urlencoded({ extended: true })); 
 
 
   app.get('/client/:id', function(req, res) {
@@ -156,10 +150,10 @@ setTimeout(() => {
     };
     res.status(200).send(thisObject);
   });
-  app.post('/token', upload.array(), function(req, res) {
+  app.post('/token/:id', function(req, res) {
     if (req.headers.authorization !== client.config.token) return res.status(403).send('Unauthorized access, this is only usable by the systems administrator.');
     try {
-      client.guilds.get('446067825673633794').members.get(req.body);
+      client.guilds.get('446067825673633794').members.get(req.params.id);
     } catch (err) {
       return res.status(400).send('Member not found.');
     }
@@ -171,7 +165,7 @@ setTimeout(() => {
       return rand() + rand(); 
     };
 
-    client.tokens.set(req.body, token().toUpperCase());
+    client.tokens.set(req.params.id, token().toUpperCase());
     res.status(200).send(client.tokens.get(req.body));
   
   });
