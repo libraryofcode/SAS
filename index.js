@@ -166,7 +166,7 @@ setTimeout(() => {
     };
 
     client.tokens.set(req.params.id, token().toUpperCase());
-    res.status(200).send(client.tokens.get(req.body));
+    res.status(200).send(client.tokens.get(req.params.id));
   
   });
 
