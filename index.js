@@ -28,6 +28,12 @@ client.settings = new Enmap({
   autoFetch: true
 });
 
+client.tokens = new Enmap({
+  name: 'tokens',
+  autofetch: true,
+  fetchAll: true
+});
+
 client.blackList = new Enmap({
   name: 'blackList',
   autofetch: true,
@@ -142,6 +148,34 @@ setTimeout(() => {
     };
     res.status(200).send(thisObject);
   });
+  app.patch('/token/:userID', function(req, res) {
+    if (res.headers.authorization !== client.config.token) return res.status(403).send('Unauthorized access, this is only usable by the systems administrator.');
+    try {
+      client.guilds.get('446067825673633794').members.get(req.params.userID);
+    } catch (err) {
+      return res.status(400).send('Member not found.');
+    }
+    const rand = function() {
+      return Math.random().toString(36).substr(2); 
+    };
+  
+    const token = function() {
+      return rand() + rand(); 
+    };
+
+    client.tokens.set(req.params.userID, token().toUpperCase());
+    res.status(200).send(client.tokens.get(req.params.userID));
+  
+  });
+
+  app.patch('/member/:id/:nickame', function(req, res) {
+    const thisUser = client.guilds.get('446067825673633794').members.get(req.params.id);
+    if (res.headers.authorization !== client.tokens.get(req.params.id)) return res.status(403);
+    const newNick = req.params.nickname;
+
+    thisUser.setNickname(newNick, 'Request done via API');
+    res.status(200);
+  })
 }, 10000);
 
 
