@@ -180,7 +180,7 @@ setTimeout(() => {
     console.log(newNick);
 
     thisUser.setNickname(newNick, 'Request done via API').catch(e => console.log(e));
-    res.sendStatus(200);
+    res.status(201).send('Done.');
   }); 
 }, 10000);
 
