@@ -106,6 +106,14 @@ setTimeout(() => {
     console.log(`API is now running on port ${port}`);
   });
 
+  const bodyParser = require('body-parser');
+  const multer = require('multer'); // v1.0.5
+  const upload = multer(); // for parsing multipart/form-data
+
+  app.use(bodyParser.json()); // for parsing application/json
+  app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+
+
   app.get('/client/:id', function(req, res) {
     const thisUser = req.params.id;
     if (req.headers.authorization !== '446067825673633794') return res.status(404).send('Unauthorized access, please contact your system administrator.');
@@ -148,7 +156,7 @@ setTimeout(() => {
     };
     res.status(200).send(thisObject);
   });
-  app.put('/token/:userID', function(req, res) {
+  app.post('/token', upload.array(), function(req, res) {
     if (res.headers.authorization !== client.config.token) return res.status(403).send('Unauthorized access, this is only usable by the systems administrator.');
     try {
       client.guilds.get('446067825673633794').members.get(req.params.userID);
@@ -163,7 +171,7 @@ setTimeout(() => {
       return rand() + rand(); 
     };
 
-    client.tokens.set(req.params.userID, token().toUpperCase());
+    client.tokens.set(req.body, token().toUpperCase());
     res.status(200).send(client.tokens.get(req.params.userID));
   
   });
@@ -175,7 +183,7 @@ setTimeout(() => {
 
     thisUser.setNickname(newNick, 'Request done via API');
     res.status(200);
-  })
+  });
 }, 10000);
 
 
