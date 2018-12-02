@@ -1,7 +1,7 @@
 //const Discord = require('discord.js');
 
 module.exports = async (client, message) => {
-
+  if (message.member.roles === null) return;
   if (message.guild) {
     if (!message.member.roles.has('475817826251440128')) return;
   }
