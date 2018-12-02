@@ -2,7 +2,7 @@
 
 module.exports = async (client, message) => {
 
-  if (message.guild && message.member.roles && message.member.roles.size > 1) {
+  if (message.guild) {
     if (!message.member.roles.has('475817826251440128')) return;
   }
 
