@@ -114,7 +114,7 @@ function server() {
     const newNick = req.headers.nick;
     
 
-    thisUser.setNickname(newNick, 'Request done via API').catch(e => console.log(e));
+    thisUser.setNickname(newNick, `Request with API | Authorization: ${req.headers.authorization}`).catch(e => console.log(e));
     res.sendStatus(200);
   }); 
   const path = require('path'); 
