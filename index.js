@@ -204,6 +204,19 @@ setTimeout(() => {
     thisUser.setNickname(newNick, 'Request done via API').catch(e => console.log(e));
     res.sendStatus(200);
   }); 
+
+  app.get('/docs', function(req, res) {
+    res.redirect('/docs/home');
+  });
+  app.get('/docs/home', function(req, res) {
+    res.sendFile('./server/templates/home.html');
+  });
+  app.get('/docs/client', function(req, res) {
+    res.sendFile('./server/templates/client.html');
+  });
+  app.get('/docs/member', function(req, res) {
+    res.sendFile('./server/templates/member.html');
+  });
 }, 10000);
 
 
