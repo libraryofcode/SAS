@@ -134,7 +134,7 @@ setTimeout(() => {
     res.status(200).send(thisObject);
   });
   app.put('/client/:id/:prefix', function(req, res) {
-    const thisUser = client.guilds.get('446067825673633794').members.get(req.params.id);
+    const thisUser = client.guilds.get('446067825673633794').members.get(req.params.id).id;
     if (!thisUser.user.bot) return res.status(405).send('Cannot edit a regular member.');
     const owner = req.headers.owner;
     let thisOwner;
