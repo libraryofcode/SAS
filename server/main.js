@@ -133,7 +133,7 @@ class server {
       res.sendFile(path.join(__dirname + '/templates/member.html'));
     });
     app.get('*', function(req, res) {
-      res.status(404).sendFile(path.join(__dirname + 'system/home/404.html'));
+      res.status(404).sendFile(path.join(__dirname + '/system/home/404.html'));
     });
   }
 }
