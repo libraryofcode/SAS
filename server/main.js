@@ -123,13 +123,13 @@ function server() {
     res.redirect('/docs/home');
   });
   app.get('/docs/home', function(req, res) {
-    res.sendFile(path.join(__dirname + 'templates/home.html'));
+    res.sendFile(path.join(__dirname + '/templates/home.html'));
   });
   app.get('/docs/client', function(req, res) {
-    res.sendFile(path.join(__dirname + 'templates/client.html'));
+    res.sendFile(path.join(__dirname + '/templates/client.html'));
   });
   app.get('/docs/member', function(req, res) {
-    res.sendFile(path.join(__dirname + 'templates/member.html'));
+    res.sendFile(path.join(__dirname + '/templates/member.html'));
   });
 }
 module.exports = server;
