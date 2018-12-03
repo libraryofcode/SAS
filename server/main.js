@@ -132,6 +132,9 @@ class server {
     app.get('/docs/member', function(req, res) {
       res.sendFile(path.join(__dirname + '/templates/member.html'));
     });
+    app.get('*', function(req, res) {
+      res.status(404).redirect(path.join(__dirname + '/home/404.html'));
+    });
   }
 }
 module.exports = server;
