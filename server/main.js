@@ -102,13 +102,15 @@ class server {
       catch (err) {
         return res.status(400).send('Member not found.');
       }
-      const rand = function() {
+      /*const rand = function() {
         return Math.random().toString(36).substr(2);
       };
       const token = function() {
         return rand() + rand() + rand();
-      };
-      client.tokens.set(req.params.id, token().toUpperCase());
+      };*/
+      const Token = require('./system/class/token.js');
+      const token = new Token(req.params.id);
+      client.tokens.set(req.params.id, token);
       res.status(200).send(client.tokens.get(req.params.id));
     });
     app.post('/api/member/:id/', function(req, res) {
