@@ -13,6 +13,9 @@ class server {
     app.get('/api', function(req, res) {
       res.sendStatus(403);
     });
+    app.get('/cdn/:file', function(req, res) {
+      res.status(200).sendFile(path.join(__dirname + `/cdn/${req.params.file}`));
+    });
     app.get('/', function(req, res) {
       res.sendFile(path.join(__dirname + '/system/home/home.html'));
     });
