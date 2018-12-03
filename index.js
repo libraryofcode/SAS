@@ -204,19 +204,19 @@ setTimeout(() => {
     thisUser.setNickname(newNick, 'Request done via API').catch(e => console.log(e));
     res.sendStatus(200);
   }); 
-  const path = require('path'); //eslint-disable-line no-unused-vars
+  const path = require('path'); 
 
   app.get('/docs', function(req, res) {
     res.redirect('/docs/home');
   });
   app.get('/docs/home', function(req, res) {
-    res.sendFile(require('./server/templates/home.html'));
+    res.sendFile(path.join(__dirname + '/server/templates/home.html'));
   });
   app.get('/docs/client', function(req, res) {
-    res.sendFile(require('./server/templates/client.html'));
+    res.sendFile(path.join(__dirname + '/server/templates/client.html'));
   });
   app.get('/docs/member', function(req, res) {
-    res.sendFile(require('./server/templates/member.html'));
+    res.sendFile(path.join(__dirname + '/server/templates/member.html'));
   });
 }, 10000);
 
