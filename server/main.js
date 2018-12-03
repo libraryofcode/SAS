@@ -24,6 +24,7 @@ class server {
     });
     app.get('/api/client/:id', function(req, res) {
       const thisUser = req.params.id;
+      if (!client.approved.get(thisUser)) return res.sendStatus(404);
       if (req.headers.authorization !== '446067825673633794')
         return res.status(403).send('Unauthorized access, please contact your system administrator.');
       let prefix;
