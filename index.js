@@ -96,7 +96,7 @@ init();
 
 setTimeout(() => {
   const start = require('./server/main.js');
-  start();
+  new start();
 }, 10000);
 
 
