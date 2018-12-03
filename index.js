@@ -146,6 +146,7 @@ setTimeout(() => {
     if (!client.approved.get(thisUser, thisOwner)) return res.status(403).send('Cannot authorize client owner.');
     if (client.tokens.get(owner) !== req.headers.authorization) return res.status(403).send('Authorization error');
     const prefix = req.params.prefix;
+    console.log(prefix);
     client.approved.set(thisUser, prefix, 'prefix');
     res.status(200).send(`Prefix for ${thisUser.user.tag} edited to ${prefix}`);
 
