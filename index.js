@@ -106,7 +106,12 @@ setTimeout(() => {
     console.log(`API is now running on port ${port}`);
   });
 
-
+  app.get('/api', function(req, res) {
+    res.sendStatus(403);
+  });
+  app.get('/', function(req, res) {
+    res.sendFile(path.join(__dirname + '/system/home/home.html'));
+  });
   app.get('/garnet/help', function(req, res) {
     res.status(301).redirect('http://garnet.libraryofcode.ml:8800');
   });
