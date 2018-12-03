@@ -107,8 +107,12 @@ setTimeout(() => {
   });
 
 
-
-  app.get('/client/:id', function(req, res) {
+  app.get('/garnet/help', function(req, res) {
+    res.writeHead(302, {
+      Location: 'http://garnet.libraryofcode.ml:8800'
+    });
+  });
+  app.get('/api/client/:id', function(req, res) {
     const thisUser = req.params.id;
     if (req.headers.authorization !== '446067825673633794') return res.status(403).send('Unauthorized access, please contact your system administrator.');
     let prefix;
@@ -133,7 +137,7 @@ setTimeout(() => {
     };
     res.status(200).send(thisObject);
   });
-  app.put('/client/:id/:prefix', function(req, res) {
+  app.put('/api/client/:id/:prefix', function(req, res) {
     const thisUser = client.guilds.get('446067825673633794').members.get(req.params.id);
     if (!thisUser.user.bot) return res.status(405).send('Cannot edit a regular member.');
     const owner = req.headers.owner;
@@ -151,7 +155,7 @@ setTimeout(() => {
     res.status(200).send(`Prefix for ${thisUser.user.tag} edited to ${prefix}`);
 
   });
-  app.get('/member/:id', function(req, res) {
+  app.get('/api/member/:id', function(req, res) {
     const thisUser = client.guilds.get('446067825673633794').members.get(req.params.id);
     if (req.headers.authorization !== '446067825673633794') return res.status(403).send('Unauthorized access, please contact your system administrator.');
 
@@ -175,7 +179,7 @@ setTimeout(() => {
     };
     res.status(200).send(thisObject);
   });
-  app.get('/token/:id', function(req, res) {
+  app.get('/api/token/:id', function(req, res) {
     if (req.headers.authorization !== client.config.adminAuth) return res.status(403).send('Unauthorized access, this is only usable by the systems administrator.');
     try {
       client.guilds.get('446067825673633794').members.get(req.params.id);
@@ -195,7 +199,7 @@ setTimeout(() => {
   
   });
 
-  app.post('/member/:id/', function(req, res) {
+  app.post('/api/member/:id/', function(req, res) {
     const thisUser = client.guilds.get('446067825673633794').members.get(req.params.id);
     if (req.headers.authorization !== client.tokens.get(req.params.id)) return res.status(403);
     const newNick = req.headers.nick;
