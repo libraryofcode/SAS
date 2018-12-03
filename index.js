@@ -111,12 +111,19 @@ setTimeout(() => {
   app.get('/client/:id', function(req, res) {
     const thisUser = req.params.id;
     if (req.headers.authorization !== '446067825673633794') return res.status(403).send('Unauthorized access, please contact your system administrator.');
+    let prefix;
+    try {
+      prefix = client.approved.get(thisUser, 'prefix');
+    } catch (err) {
+      prefix = err;
+    }
 
     const thisObject = {
       client: {
         name: client.approved.get(thisUser, 'username'),
         id: thisUser,
-        owner: client.approved.get(thisUser, 'owner')
+        owner: client.approved.get(thisUser, 'owner'),
+        prefix: prefix
       },
       approval: {
         type: client.approved.get(thisUser, 'type'),
@@ -125,6 +132,16 @@ setTimeout(() => {
       }
     };
     res.status(200).send(thisObject);
+  });
+  app.put('/client/:id/:prefix', function(req, res) {
+    const thisUser = client.guilds.get('446067825673633794').members.get(req.params.id);
+    if (!thisUser.user.bot) return res.status(405).send('Cannot edit a regular member.');
+    const owner = req.headers.owner;
+    if (req.headers.authorization !== client.tokens.get(owner)) return res.sendStatus(403);
+    const prefix = req.params.prefix;
+    client.approved.set(thisUser, prefix, 'prefix');
+    res.status(200).send(`Prefix for ${thisUser.user.tag} edited to ${prefix}`);
+
   });
   app.get('/member/:id', function(req, res) {
     const thisUser = client.guilds.get('446067825673633794').members.get(req.params.id);
@@ -162,7 +179,7 @@ setTimeout(() => {
     };
   
     const token = function() {
-      return rand() + rand(); 
+      return rand() + rand() + rand(); 
     };
 
     client.tokens.set(req.params.id, token().toUpperCase());

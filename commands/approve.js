@@ -162,8 +162,8 @@ exports.run = async (client, message, args) => {
     errorEmbed.addField('Type 3', 'Staff bots (other boats, boats, regular boats, staff boats)', true);
     errorEmbed.setFooter(client.user.username, client.user.avatarURL);
     errorEmbed.setTimestamp();
-    message.channel.send(errorEmbed)
-    return msg.edit(errorEmbed);
+    message.channel.send(errorEmbed);
+    return msg.edit(errorEmbed); //eslint-disable-line no-undef
   }
 
 
