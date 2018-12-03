@@ -108,9 +108,7 @@ setTimeout(() => {
 
 
   app.get('/garnet/help', function(req, res) {
-    res.writeHead(302, {
-      Location: 'http://garnet.libraryofcode.ml:8800'
-    });
+    res.status(301).redirect('http://garnet.libraryofcode.ml:8800');
   });
   app.get('/api/client/:id', function(req, res) {
     const thisUser = req.params.id;
