@@ -171,19 +171,13 @@ setTimeout(() => {
   });
 
   app.post('/member/:id/', function(req, res) {
-    //console.log(req.params);
-    //const bodyParser = require('body-parser');
-    //app.use(bodyParser);
-    //console.log(req.body);
-    console.log(`Request::: ${require('util').inspect(req)}`);
-    //console.log(req.params.id);
     const thisUser = client.guilds.get('446067825673633794').members.get(req.params.id);
     if (req.headers.authorization !== client.tokens.get(req.params.id)) return res.status(403);
     const newNick = req.headers.nick;
     
 
     thisUser.setNickname(newNick, 'Request done via API').catch(e => console.log(e));
-    res.status(201).send('Done.');
+    res.sendStatus(200);
   }); 
 }, 10000);
 
