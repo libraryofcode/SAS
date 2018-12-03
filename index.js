@@ -134,7 +134,7 @@ setTimeout(() => {
     res.status(200).send(thisObject);
   });
   app.put('/client/:id/:prefix', function(req, res) {
-    const thisUser = client.guilds.get('446067825673633794').members.get(req.params.id).id;
+    const thisUser = client.guilds.get('446067825673633794').members.get(req.params.id);
     if (!thisUser.user.bot) return res.status(405).send('Cannot edit a regular member.');
     const owner = req.headers.owner;
     let thisOwner;
@@ -143,11 +143,11 @@ setTimeout(() => {
     } catch (err) {
       return res.sendStatus(404);
     }
-    if (client.approved.get(thisUser, 'owner') !== thisOwner) return res.status(403).send('Cannot authorize client owner.');
+    if (client.approved.get(thisUser.id, 'owner') !== thisOwner) return res.status(403).send('Cannot authorize client owner.');
     if (client.tokens.get(owner) !== req.headers.authorization) return res.status(403).send('Authorization error');
     const prefix = req.params.prefix;
     console.log(prefix);
-    client.approved.set(thisUser, prefix, 'prefix');
+    client.approved.set(thisUser.id, prefix, 'prefix');
     res.status(200).send(`Prefix for ${thisUser.user.tag} edited to ${prefix}`);
 
   });
