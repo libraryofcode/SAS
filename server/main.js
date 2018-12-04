@@ -56,7 +56,7 @@ class server {
       if (!client.users.get(req.params.userID)) return res.sendStatus(403);
       if (client.guilds.get('446067825673633794').members.get(req.params.userID).roles.has(req.param.roleID)) return res.status(406).send('Provided guild member already has requested role.');
       try {
-        client.guilds.get('446067825673633794').members.get(req.get.userID).addRole(req.params.roleID, 'Request done via API');
+        client.guilds.get('446067825673633794').members.get(req.params.userID).addRole(req.params.roleID, 'Request done via API');
         res.status(200);
       } catch (err) {
         res.status(500).send(`Internal Server Error | ${err}`);
