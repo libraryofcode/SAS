@@ -10,6 +10,7 @@ class server {
       express = require('express');
 
     const port = 443;
+    const express_enforces_ssl = require('express-enforces-ssl');
 
     const options = {
       key: fs.readFileSync(path.join(__dirname + '/system/ssl/private.key')),
@@ -18,6 +19,10 @@ class server {
     };
 
     const app = express();
+
+    app.enable('trust proxy');
+
+    app.use(express_enforces_ssl());
 
     const server = https.createServer(options, app).listen(port, function() { //eslint-disable-line
       console.log('Express server listening on port ' + port);
@@ -119,12 +124,6 @@ class server {
       catch (err) {
         return res.status(400).send('Member not found.');
       }
-      /*const rand = function() {
-        return Math.random().toString(36).substr(2);
-      };
-      const token = function() {
-        return rand() + rand() + rand();
-      };*/
       const Token = require('./system/class/token.js');
       const token = new Token(req.params.id).genToken;
       client.tokens.set(req.params.id, token);
