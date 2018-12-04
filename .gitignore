@@ -1,6 +1,7 @@
 # Logs
 logs
 server/system/ssl
+data/
 *.log
 /server/system/ssl
 npm-debug.log*
