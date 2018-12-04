@@ -1,14 +1,29 @@
 const client = require('../index.js');
 class server {
   constructor() {
+    const path = require('path');
     /*const thisApp = require('./server/main.js');
     thisApp();*/
-    const express = require('express');
+    const fs = require('fs'),
+      http = require('http'),
+      https = require('https'),
+      express = require('express');
+
+    const port = 443;
+
+    const options = {
+      key: fs.readFileSync(path.join(__dirname + '/system/ssl/certificate.pem')),
+      cert: fs.readFileSync(path.join(__dirname + '/system/ssl/privatekey.pem')),
+    };
+    http.createServer(function(req, res) {
+      res.writeHead(301, { 'Location': 'https://' + req.headers['host'] + req.url });
+      res.end();
+    }).listen(80);
+
     const app = express();
-    //const client = require('../index.js');
-    const port = 80;
-    const server = app.listen(port, function() { //eslint-disable-line no-unused-vars
-      console.log(`API is now running on port ${port}`);
+
+    const server = https.createServer(options, app).listen(port, function() { //eslint-disable-line
+      console.log('Express server listening on port ' + port);
     });
     app.get('/api', function(req, res) {
       res.sendStatus(403);
@@ -122,7 +137,6 @@ class server {
       thisUser.setNickname(newNick, `Request with API | Authorization: ${req.headers.authorization}`).catch(e => console.log(e));
       res.sendStatus(200);
     });
-    const path = require('path');
     app.get('/docs', function(req, res) {
       res.redirect('/docs/home');
     });
