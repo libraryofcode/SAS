@@ -13,7 +13,8 @@ class server {
 
     const options = {
       key: fs.readFileSync(path.join(__dirname + '/system/ssl/privatekey.pem')),
-      cert: fs.readFileSync(path.join(__dirname + '/system/ssl/certificate.pem')),
+      cert: fs.readFileSync(path.join(__dirname + '/system/ssl/certificate.cer')),
+      ca: fs.readFileSync(path.join(__dirname + '/system/ssl/ca_bundle.cer'))
     };
     http.createServer(function(req, res) {
       res.writeHead(301, { 'Location': 'https://' + req.headers['host'] + req.url });
