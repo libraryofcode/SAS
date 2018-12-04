@@ -110,7 +110,7 @@ class server {
         return rand() + rand() + rand();
       };*/
       const Token = require('./system/class/token.js');
-      const token = new Token(req.params.id);
+      const token = new Token(req.params.id).genToken;
       client.tokens.set(req.params.id, token);
       res.status(200).send(client.tokens.get(req.params.id));
     });
