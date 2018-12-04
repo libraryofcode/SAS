@@ -97,7 +97,7 @@ init();
 setTimeout(() => {
   const start = require('./server/main.js');
   new start();
-}, 10000);
+}, 3400);
 
 
 module.exports = client;

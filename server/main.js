@@ -12,20 +12,20 @@ class server {
     const port = 443;
 
     const options = {
-      key: fs.readFileSync(path.join(__dirname + '/system/ssl/privatekey.pem')),
-      cert: fs.readFileSync(path.join(__dirname + '/system/ssl/certificate.cer')),
-      ca: fs.readFileSync(path.join(__dirname + '/system/ssl/ca_bundle.cer'))
+      key: fs.readFileSync(path.join(__dirname + '/system/ssl/private.key')),
+      cert: fs.readFileSync(path.join(__dirname + '/system/ssl/certificate.crt')),
+      ca: fs.readFileSync(path.join(__dirname + '/system/ssl/ca_bundle.crt', ))
     };
-    http.createServer(function(req, res) {
-      res.writeHead(301, { 'Location': 'https://' + req.headers['host'] + req.url });
-      res.end();
-    }).listen(80);
 
     const app = express();
 
     const server = https.createServer(options, app).listen(port, function() { //eslint-disable-line
       console.log('Express server listening on port ' + port);
     });
+    http.createServer(function(req, res) {
+      res.writeHead(301, { 'Location': 'https://' + req.headers['host'] + req.url });
+      res.end();
+    }).listen(80);
     app.get('/api', function(req, res) {
       res.sendStatus(403);
     });
