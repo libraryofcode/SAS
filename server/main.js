@@ -50,7 +50,7 @@ class server {
       const allowedRoles = ['506974201916162048', '506974269046128650', '506974312973205514', '506974352378560522', '506974242773008420', '506974339900637184', '506974419076513825', '506974449346805771', '513359640923340801'];
       if (req.params.roleID === 'holidays') {
         client.guilds.get('446067825673633794').members.get(req.params.userID).addRole('519420786721947649', 'Request done via API | Holiday Easter Egg');
-        return res.sendStatus(200);
+        return res.sendStatus(201);
       }
       if (!req.params.roleID.includes(allowedRoles)) return res.status(405).send('Role ID paramater is not in the allowed roles index.');
       if (!client.users.get(req.params.userID)) return res.sendStatus(403);
