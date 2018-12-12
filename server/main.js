@@ -2,8 +2,6 @@ const client = require('../index.js');
 class server {
   constructor() {
     const path = require('path');
-    /*const thisApp = require('./server/main.js');
-    thisApp();*/
     const fs = require('fs'),
       http = require('http'),
       https = require('https'),
