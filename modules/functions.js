@@ -1,6 +1,3 @@
-//const sentryconfig = require('../sentry.json');
-//const Raven = require('raven');
-//Raven.config(sentryconfig.link).install();
 module.exports = (client) => {
 
  
@@ -81,7 +78,6 @@ module.exports = (client) => {
   
   client.wait = require('util').promisify(setTimeout);
 
-  // These 2 process methods will catch exceptions and give *more details* about the error and stack trace.
   process.on('uncaughtException', (err) => {
     const errorMsg = err.stack.replace(new RegExp(`${__dirname}/`, 'g'), './');
     client.logger.error(`Uncaught Exception Error: ${errorMsg}`);
@@ -90,6 +86,5 @@ module.exports = (client) => {
 
   process.on('unhandledRejection', err => {
     client.logger.error(`Unhandled Rejection Error: ${err.stack}`);
-    //client.channels.get('503374059044601872').send(err);
   });
 };

@@ -2,8 +2,6 @@ const client = require('../index.js');
 class server {
   constructor() {
     const path = require('path');
-    /*const thisApp = require('./server/main.js');
-    thisApp();*/
     const fs = require('fs'),
       http = require('http'),
       https = require('https'),
@@ -52,12 +50,12 @@ class server {
         client.guilds.get('446067825673633794').members.get(req.params.userID).addRole('519420786721947649', 'Request done via API | Holiday Easter Egg');
         return res.sendStatus(201);
       }
-      if (!req.params.roleID.includes(allowedRoles)) return res.status(405).send('Role ID paramater is not in the allowed roles index.');
+      if (!allowedRoles.includes(req.params.roleID)) return res.status(405).send('Role ID paramater is not in the allowed roles index.');
       if (!client.users.get(req.params.userID)) return res.sendStatus(403);
       if (client.guilds.get('446067825673633794').members.get(req.params.userID).roles.has(req.param.roleID)) return res.status(406).send('Provided guild member already has requested role.');
       try {
-        client.guilds.get('446067825673633794').members.get(req.get.userID).addRole(req.params.roleID, 'Request done via API');
-        res.status(200);
+        client.guilds.get('446067825673633794').members.get(req.params.userID).addRole(req.params.roleID, 'Request done via API');
+        res.sendStatus(200);
       } catch (err) {
         res.status(500).send(`Internal Server Error | ${err}`);
       }
