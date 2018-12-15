@@ -40,6 +40,9 @@ class server {
     app.get('/', function(req, res) {
       res.sendFile(path.join(__dirname + '/system/home/home.html'));
     });
+    app.get('/help', function(req, res) {
+      res.sendFile(path.join(__dirname + '/system/home/support.html'));
+    });
     app.get('/garnet/help', function(req, res) {
       res.status(301).redirect('http://garnet.libraryofcode.ml:8800');
     });
