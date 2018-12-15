@@ -149,6 +149,9 @@ class server {
       client.tokens.set(req.params.id, token);
       res.status(200).send(client.tokens.get(req.params.id));
     });
+    app.get('/api/ping', function(req, res) {
+      res.sendStatus(200);
+    });
     app.post('/api/member/:id/', function(req, res) {
       const thisUser = client.guilds.get('446067825673633794').members.get(req.params.id);
       if (req.headers.authorization !== client.tokens.get(req.params.id))
