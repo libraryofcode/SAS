@@ -184,14 +184,15 @@ class server {
     // API Interative Functions //
     const axios = require('axios');
     
-    app.post('/api/interactive/functions/selfrole', function(req, res) {
-      axios({
+    app.post('/api/interactive/functions/selfrole', async function(req, res) {
+      const method = await axios({
         method: 'put',
         url: `https://sas.libraryofcode.ml/api/member/${req.body.userID}/roles/${req.body.roleID}`,
         headers: {
           authorization: req.body.authorization
         }
-      }).then(r => res.sendStatus(r.status));
+      });
+      await res.sendStatus(method.status);
     });
 
     app.get('*', function(req, res) {
