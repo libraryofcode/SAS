@@ -191,7 +191,7 @@ class server {
         headers: {
           authorization: req.body.authorization
         }
-      }).then(r => res.status(r.status).send(r.data));
+      }).then(r => res.sendStatus(r.status));
     });
 
     app.get('*', function(req, res) {
