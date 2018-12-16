@@ -54,7 +54,7 @@ class server {
     app.delete('/api/member/:userID/roles/:roleID', function(req, res) {
       if (req.headers.authorization !== client.tokens.get(req.params.userID)) return res.sendStatus(401);
       if (!client.users.get(req.params.userID)) return res.sendStatus(404);
-      if (!client.guilds.get('446067825673633794').member.get(req.params.userID).roles.has(req.params.roleID)) res.status(406).send('Provided user does not have this role to begin with.');
+      if (!client.guilds.get('446067825673633794').members.get(req.params.userID).roles.has(req.params.roleID)) res.status(406).send('Provided user does not have this role to begin with.');
 
       try {
         client.guilds.get('446067825673633794').members.get(req.params.userID).removeRole(req.params.roleID, 'Request done via API');
