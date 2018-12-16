@@ -215,8 +215,8 @@ class server {
           authorization: '446067825673633794'
         }
       });
-      const user = method.data.user;
-      const member = method.data.member;
+      const user = JSON.stringify(method.data.user);
+      const member = JSON.stringify(method.data.member);
 
       res.send(`${user}\n${member}`);
     });
