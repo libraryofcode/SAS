@@ -20,6 +20,15 @@ class server {
     const app = express();
 
     app.enable('trust proxy');
+    const rateLimit = require('express-rate-limit');
+ 
+ 
+    const apiLimiter = rateLimit({
+      max: 5
+    });
+ 
+    // only apply to requests that begin with /api/
+    app.use('/api/', apiLimiter);
 
     app.use(express_enforces_ssl());
     app.use(bodyParser.urlencoded({ extended: true }));
