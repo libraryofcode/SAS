@@ -286,7 +286,7 @@ class server {
       const user = method.data.user; //JSON.stringify(method.data.user);
       const member = method.data.member; //JSON.stringify(method.data.member);
 
-      res.send(`<h1>${user.username}#${user.discriminator}</h1> <img src="${user.avatar}" alt="User PFP" style="width:100px;height:100px;"> <br> <h2>User</h2> <br> <b>ID:</b> ${user.id} <br> <b>Created At:</b> ${user.createdAt} <br> <b>Bot:</b> ${user.bot} <br> <br> <h2>Member</h2> <br> <b>Nickname:</b> ${member.nickname} <br> <b>Joined At:</b> ${member.joinedAt} <br> <b>Highest Role:</b> ${member.highestRole} <br> <br> <h1>Library of Code Team<h2> ${staffFunction(botuser).join(', ')}`);
+      res.send(`<h1>${user.username}#${user.discriminator}</h1> <img src="${user.avatar}" alt="User PFP" style="width:100px;height:100px;"> <br> <h2>User</h2> <br> <b>ID:</b> ${user.id} <br> <b>Created At:</b> ${user.createdAt} <br> <b>Bot:</b> ${user.bot} <br> <br> <h2>Member</h2> <br> <b>Nickname:</b> ${member.nickname} <br> <b>Joined At:</b> ${member.joinedAt} <br> <b>Highest Role:</b> ${member.highestRole} <br> <br> ${staffFunction(botuser).join(', ')}`);
     });
 
     app.get('*', function(req, res) {
