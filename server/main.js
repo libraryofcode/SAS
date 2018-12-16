@@ -218,7 +218,7 @@ class server {
         });
         await res.sendStatus(method.status);
       } catch (err) {
-        res.status(500).send(err);
+        res.status(500).send(`Internal Server Error | ${err}`);
       }
     });
     app.post('/api/interactive/functions/removerole', async function(req, res) {
@@ -232,7 +232,7 @@ class server {
         });
         await res.sendStatus(method.status);
       } catch (err) {
-        res.status(500).send(err);
+        res.status(500).send(`Internal Server Error | ${err}`);
       }
     });
     app.post('/api/interactive/functions/memberdata', async function(req, res) {
