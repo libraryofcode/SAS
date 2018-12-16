@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<head>
+    <title>LOC API Interactive</title>
+</head>
+<body>
+    <form action="https://sas.libraryofcode.ml/api/interactive/functions/memberrolecolor" method="post">
+      <fieldset>
+          <legend>API Interactive | Member Role Color Change</legend>
+          <p>You can only change the color of the role if you have that role.</p>
+          <p><i>This feature is only available through the Interactive API</i></p>
+          User ID: <br>
+          <input type="text" name="userID"><br>
+          Role: <br>
+          <input type="radio" name="roleID" value="506943223680466955"> Proficient<br>
+          <input type="radio" name="roleID" value="472524444083159050"> Regulars<br>
+          <input type="radio" name="roleID" value="511771731891847168"> Constants<br>
+          Color: <br>
+          <input type="color" name="roleColor"> <br>
+          Token: <br>
+          <input type="password" name="authorization">
+          <br>
+          <input type="submit" value="Submit">
+          <input type="reset" value="Reset">
+      </fieldset>
+    </form>
+</body>

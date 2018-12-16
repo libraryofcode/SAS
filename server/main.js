@@ -214,6 +214,9 @@ class server {
     app.get('/api/interactive/pages/removerole', function(req, res) {
       res.sendFile(path.join(__dirname + '/interactive/removeRole.html'));
     });
+    app.get('/api/interactive/pages/memberrolecolorchange', function(req, res) {
+      res.sendFile(path.join(__dirname + '/interactive/roleColorChange.html'));
+    });
 
     // API Interative Functions //
     const axios = require('axios');
@@ -288,6 +291,17 @@ class server {
         const member = method.data.member; //JSON.stringify(method.data.member);
 
         res.send(`<h1>${user.username}#${user.discriminator}</h1> <img src="${user.avatar}" alt="User PFP" style="width:100px;height:100px;"> <br> <h2>User</h2> <br> <b>ID:</b> ${user.id} <br> <b>Created At:</b> ${user.createdAt} <br> <b>Bot:</b> ${user.bot} <br> <br> <h2>Member</h2> <br> <b>Nickname:</b> ${member.nickname} <br> <b>Joined At:</b> ${member.joinedAt} <br> <b>Highest Role:</b> ${member.highestRole} <br> <br> ${staffFunction(botuser).join(', ')}`);
+      } catch (err) {
+        res.status(500).send(`Internal Server Error | ${err}`);
+      }
+    });
+    app.post('/api/interactive/functions/memberrolecolor', function(req, res) {
+      if (req.body.authorization !== client.tokens.get(req.body.userID)) return res.sendStatus(401);
+      if (req.body.roleID !== '506943223680466955' || '472524444083159050' || '511771731891847168') return res.status(403).send('This role cannot have it\'s color changed.');
+      if (!client.guilds.get('446067825673633794').members.get(req.body.userID).roles.get(req.body.roleID)) return res.status(401).send('Cannot edited color of specified role because you do not have it.');
+      try {
+        client.guilds.get('446067825673633794').roles.get(req.body.roleID).setColor(req.body.roleColor, 'Request done via Interactive API');
+        res.sendStatus(200);
       } catch (err) {
         res.status(500).send(`Internal Server Error | ${err}`);
       }
