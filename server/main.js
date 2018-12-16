@@ -175,9 +175,6 @@ class server {
     app.get('/docs/member', function(req, res) {
       res.sendFile(path.join(__dirname + '/templates/member.html'));
     });
-    app.get('*', function(req, res) {
-      res.status(404).sendFile(path.join(__dirname + '/system/home/404.html'));
-    });
 
     // API Interactive Pages //
     app.get('/api/interactive/pages/selfrole', function(req, res) {
@@ -195,6 +192,10 @@ class server {
           authorization: req.body.authorization
         }
       }).then(r => res.status(r.status).send(r.data));
+    });
+
+    app.get('*', function(req, res) {
+      res.status(404).sendFile(path.join(__dirname + '/system/home/404.html'));
     });
   }
 }
