@@ -254,10 +254,39 @@ class server {
           authorization: '446067825673633794'
         }
       });
+      const botuser = method.data.user;
+      function staffFunction(botuser) {
+        var staffArray = [];
+        if (botuser.id === '278620217221971968') {
+          staffArray.push('Founder & Creator');
+        } // 310092788630945793
+        if (['278620217221971968', '239261547959025665', '282586181856657409', '155698776512790528'].indexOf(botuser.id) >= 0) {
+          staffArray.push('Developer');
+        }
+        if (['213632190557192192', '278620217221971968', '239261547959025665', '282586181856657409', '155698776512790528', '233667448887312385'].indexOf(botuser.id) > 0) {
+          staffArray.push('Community Administrator');
+        }
+        if (['208688963936845824', '454749660041707531', '239261547959025665', '278620217221971968', '213632190557192192'].indexOf(botuser.id) > 0) {
+          staffArray.push('Community Public Relations');
+        }
+        if (['105412668122214400', '233667448887312385', '155698776512790528', '156450671338586112', '427479645395353600', '282586181856657409', '223391425302102016', '335871787453775873', '154497072148643840', '284713468790308885', '208688963936845824', '454749660041707531', '304594274182496258', '239261547959025665', '193118227348324363', '278620217221971968', '213632190557192192', '179908288337412096'].indexOf(botuser.id) > 0) {
+          staffArray.push('Community Staff');
+        }
+        if (['213632190557192192', '278620217221971968', '454749660041707531', '282586181856657409', '427479645395353600', '155698776512790528', '233667448887312385', '179908288337412096'].indexOf(botuser.id) > 0) {
+          staffArray.push('Support & Assistance');
+        }
+        if (['213632190557192192', '239261547959025665', '154497072148643840', '282586181856657409', '156450671338586112', '155698776512790528', '193118227348324363', '179908288337412096'].indexOf(botuser.id) > 0) {
+          staffArray.push('Contributor');
+        }
+        if (['425023068004548618', '193118227348324363'].indexOf(botuser.id) >= 0) {
+          staffArray.push('Tester & Early Adopter');
+        }
+        return staffArray;
+      }
       const user = method.data.user; //JSON.stringify(method.data.user);
       const member = method.data.member; //JSON.stringify(method.data.member);
 
-      res.send(`<h1>${user.username}#${user.discriminator}</h1> <img src="${user.avatar}" alt="User PFP" style="width:100px;height:100px;"> <br> <h2>User</h2> <br> <b>ID:</b> ${user.id} <br> <b>Created At:</b> ${user.createdAt} <br> <b>Bot:</b> ${user.bot} <br> <br> <h2>Member</h2> <br> <b>Nickname:</b> ${member.nickname} <br> <b>Joined At:</b> ${member.joinedAt} <br> <b>Highest Role:</b> ${member.highestRole}`);
+      res.send(`<h1>${user.username}#${user.discriminator}</h1> <img src="${user.avatar}" alt="User PFP" style="width:100px;height:100px;"> <br> <h2>User</h2> <br> <b>ID:</b> ${user.id} <br> <b>Created At:</b> ${user.createdAt} <br> <b>Bot:</b> ${user.bot} <br> <br> <h2>Member</h2> <br> <b>Nickname:</b> ${member.nickname} <br> <b>Joined At:</b> ${member.joinedAt} <br> <b>Highest Role:</b> ${member.highestRole} <br> <br> <h1>Library of Code Team<h2> ${staffFunction(botuser).join(', ')}`);
     });
 
     app.get('*', function(req, res) {
