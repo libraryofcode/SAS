@@ -185,14 +185,18 @@ class server {
     const axios = require('axios');
     
     app.post('/api/interactive/functions/selfrole', async function(req, res) {
-      const method = await axios({
-        method: 'put',
-        url: `https://sas.libraryofcode.ml/api/member/${req.body.userID}/roles/${req.body.roleID}`,
-        headers: {
-          authorization: req.body.authorization
-        }
-      });
-      await res.sendStatus(method.status);
+      try {
+        const method = await axios({
+          method: 'put',
+          url: `https://sas.libraryofcode.ml/api/member/${req.body.userID}/roles/${req.body.roleID}`,
+          headers: {
+            authorization: req.body.authorization
+          }
+        });
+        await res.sendStatus(method.status);
+      } catch (err) {
+        res.status(500).send(err);
+      }
     });
 
     app.get('*', function(req, res) {
