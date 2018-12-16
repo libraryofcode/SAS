@@ -5,7 +5,8 @@ class server {
     const fs = require('fs'),
       http = require('http'),
       https = require('https'),
-      express = require('express');
+      express = require('express'),
+      bodyParser = require('body-parser');
 
     const port = 443;
     const express_enforces_ssl = require('express-enforces-ssl');
@@ -21,6 +22,7 @@ class server {
     app.enable('trust proxy');
 
     app.use(express_enforces_ssl());
+    app.use(bodyParser.urlencoded({ extended: true }));
 
     const server = https.createServer(options, app).listen(port, function() { //eslint-disable-line
       console.log('Express server listening on port ' + port);
@@ -32,7 +34,7 @@ class server {
 
 
     app.get('/api', function(req, res) {
-      res.sendStatus(403);
+      res.redirect(302, 'https://sas.libraryofcode.ml/api/ping');
     });
     app.get('/cdn/:file', function(req, res) {
       res.status(200).sendFile(path.join(__dirname + `/cdn/${req.params.file}`));
@@ -44,11 +46,12 @@ class server {
       res.sendFile(path.join(__dirname + '/system/home/support.html'));
     });
     app.get('/garnet/help', function(req, res) {
-      res.status(301).redirect('http://garnet.libraryofcode.ml:8800');
+      res.status(302).redirect('http://garnet.libraryofcode.ml:8800');
     });
     app.put('/api/member/:userID/roles/:roleID', function(req, res) {
       if (req.headers.authorization !== client.tokens.get(req.params.userID)) return res.sendStatus(401);
-      const allowedRoles = ['506974201916162048', '506974269046128650', '506974312973205514', '506974352378560522', '506974242773008420', '506974339900637184', '506974419076513825', '506974449346805771', '513359640923340801'];
+      const allowedRoles = ['506974201916162048', '506974269046128650', '506974312973205514', '506974352378560522', '506974242773008420', '506974339900637184', '506974419076513825', '506974449346805771', '513359640923340801', '471046343637598210', '458211172303241227', '518079499477319681'];
+      if (!req.params.roleID) return res.status(300).send(allowedRoles);
       if (req.params.roleID === 'holidays') {
         client.guilds.get('446067825673633794').members.get(req.params.userID).addRole('519420786721947649', 'Request done via API | Holiday Easter Egg');
         return res.sendStatus(201);
@@ -155,7 +158,7 @@ class server {
     app.post('/api/member/:id/', function(req, res) {
       const thisUser = client.guilds.get('446067825673633794').members.get(req.params.id);
       if (req.headers.authorization !== client.tokens.get(req.params.id))
-        return res.status(403);
+        return res.status(401);
       const newNick = req.headers.nick;
       thisUser.setNickname(newNick, `Request with API | Authorization: ${req.headers.authorization}`).catch(e => console.log(e));
       res.sendStatus(200);
@@ -174,6 +177,24 @@ class server {
     });
     app.get('*', function(req, res) {
       res.status(404).sendFile(path.join(__dirname + '/system/home/404.html'));
+    });
+
+    // API Interactive Pages //
+    app.get('/api/interactive/pages/selfrole', function(req, res) {
+      res.sendFile(path.join(__dirname + '/interactive/selfRole.html'));
+    });
+
+    // API Interative Functions //
+    const axios = require('axios');
+    
+    app.post('/api/interactive/functions/selfrole', function(req, res) {
+      axios({
+        method: 'put',
+        url: `https://sas.libraryofcode.ml/api/member/${req.body.userID}/roles/${req.body.roleID}`,
+        headers: {
+          authorization: req.body.authorization
+        }
+      }).then(r => res.status(r.status).send(r.data));
     });
   }
 }
