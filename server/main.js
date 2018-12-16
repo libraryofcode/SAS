@@ -24,7 +24,8 @@ class server {
  
  
     const apiLimiter = rateLimit({
-      max: 5
+      max: 5,
+      message: 'Status Code 429 | You are being ratelimited; too many requests.'
     });
  
     // only apply to requests that begin with /api/
