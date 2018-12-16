@@ -186,6 +186,9 @@ class server {
     app.get('/api/interactive/pages/selfrole', function(req, res) {
       res.sendFile(path.join(__dirname + '/interactive/selfRole.html'));
     });
+    app.get('/api/interactive/pages/memberdata', function(req, res) {
+      res.sendFile(path.join(__dirname + '/interactive/memberData.html'));
+    });
 
     // API Interative Functions //
     const axios = require('axios');
