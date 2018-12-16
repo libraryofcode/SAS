@@ -58,6 +58,7 @@ class server {
 
       try {
         client.guilds.get('446067825673633794').members.get(req.params.userID).removeRole(req.params.roleID, 'Request done via API');
+        res.sendStatus(200);
       } catch (err) {
         res.status(500).send(`Internal Server Error | ${err}`);
       }
