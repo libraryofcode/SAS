@@ -51,6 +51,17 @@ class server {
     app.get('/garnet/help', function(req, res) {
       res.status(302).redirect('http://garnet.libraryofcode.ml:8800');
     });
+    app.delete('/api/member/:userID/roles/:roleID', function(req, res) {
+      if (req.headers.authorization !== client.tokens.get(req.params.userID)) return res.sendStatus(401);
+      if (!client.guilds.get(req.params.userID)) return res.sendStatus(403);
+      if (!client.guilds.get('446067825673633794').member.get(req.params.userID).roles.has(req.params.roleID)) res.status(406).send('Provided user does not have this role to begin with.');
+
+      try {
+        client.guilds.get('446067825673633794').members.get(req.params.userID).removeRole(req.params.roleID, 'Request done via API');
+      } catch (err) {
+        res.status(500).send(`Internal Server Error | ${err}`);
+      }
+    });
     app.put('/api/member/:userID/roles/:roleID', function(req, res) {
       if (req.headers.authorization !== client.tokens.get(req.params.userID)) return res.sendStatus(401);
       const allowedRoles = ['506974201916162048', '506974269046128650', '506974312973205514', '506974352378560522', '506974242773008420', '506974339900637184', '506974419076513825', '506974449346805771', '513359640923340801', '471046343637598210', '458211172303241227', '518079499477319681'];
@@ -197,6 +208,20 @@ class server {
       try {
         const method = await axios({
           method: 'put',
+          url: `https://sas.libraryofcode.ml/api/member/${req.body.userID}/roles/${req.body.roleID}`,
+          headers: {
+            authorization: req.body.authorization
+          }
+        });
+        await res.sendStatus(method.status);
+      } catch (err) {
+        res.status(500).send(err);
+      }
+    });
+    app.post('/api/interactive/functions/removerole', async function(req, res) {
+      try {
+        const method = await axios({
+          method: 'delete',
           url: `https://sas.libraryofcode.ml/api/member/${req.body.userID}/roles/${req.body.roleID}`,
           headers: {
             authorization: req.body.authorization

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>LOC API Interactive</title>
+    </head>
+<body>
+    <p><b>WARNING</b> <br>You can remove any role under "Contributor" in the server.</p>
+    <p>Regardless if it's by a selfrole or not, if you need you role back. You'll need to contact Management.</p>
+    <form action="https://sas.libraryofcode.ml/api/interactive/functions/removerole" method="post">
+      <fieldset>
+          <legend>API Interactive | Remove Role</legend>
+          User ID: <br>
+          <input type="text" name="userID"><br>
+          Role ID: <br>
+          <input type="text" name="roleID"><br>
+          Token: <br>
+          <input type="text" name="authorization"><br>
+
+          <input type="submit" value="Submit">
+      </fieldset>
+    </form>
+</body>
+</html>
