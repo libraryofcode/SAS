@@ -254,10 +254,10 @@ class server {
           authorization: '446067825673633794'
         }
       });
-      const user = JSON.stringify(method.data.user);
-      const member = JSON.stringify(method.data.member);
+      const user = method.data.user; //JSON.stringify(method.data.user);
+      const member = method.data.member; //JSON.stringify(method.data.member);
 
-      res.send(`${user}\n${member}`);
+      res.send(`<h1>${user.username}${user.discriminator}</h1> <img src="${user.avatar}" alt="User PFP"> <br> <h2>User</h2> <br> ID: ${user.id} <br> Created At: ${user.createdAt} <br> Bot: ${user.bot} <br> <br> <h2>Member</h2> <br> Nickname: ${member.nickname} <br> Joined At: ${member.joinedAt} <br> Highest Role: ${member.highestRole}`);
     });
 
     app.get('*', function(req, res) {
