@@ -36,6 +36,9 @@ class server {
     app.get('/api', function(req, res) {
       res.redirect(302, 'https://sas.libraryofcode.ml/api/ping');
     });
+    app.get('/api/interactive', function(req, res) {
+      res.redirect(302, 'https://www.libraryofcode.ml/api/interactive/home');
+    });
     app.get('/cdn/:file', function(req, res) {
       res.status(200).sendFile(path.join(__dirname + `/cdn/${req.params.file}`));
     });
@@ -177,6 +180,9 @@ class server {
     });
 
     // API Interactive Pages //
+    app.get('/api/interactive/home', function(req, res) {
+      res.sendFile(path.join(__dirname + '/interactive/home.html'));
+    });
     app.get('/api/interactive/pages/selfrole', function(req, res) {
       res.sendFile(path.join(__dirname + '/interactive/selfRole.html'));
     });
@@ -197,6 +203,19 @@ class server {
       } catch (err) {
         res.status(500).send(err);
       }
+    });
+    app.post('/api/interactive/functions/memberdata', async function(req, res) {
+      const method = await axios({
+        method: 'get',
+        url: `https://sas.libraryofcode.ml/api/member/${req.body.userID}`,
+        headers: {
+          authorization: '446067825673633794'
+        }
+      });
+      const user = method.data.user;
+      const member = method.data.member;
+
+      res.send(`${user}\n${member}`);
     });
 
     app.get('*', function(req, res) {
