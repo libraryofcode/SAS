@@ -69,6 +69,13 @@ class server {
         embed.addField('Request IP', err, true);
       }
       try {
+        if (client.bans.get(realIP) === true) {
+          embed.addField('API Ban', 'true', true);
+        }
+      } catch (err) {
+        embed.addField('API Ban', err, true);
+      }
+      try {
         embed.addField('Parameters', JSON.stringify(req.params), true);
       } catch (err) {
         embed.addField('Parameters', err, true);
@@ -115,7 +122,7 @@ class server {
     });
     app.put('/api/admin/:adminID/ban/:ip', function(req, res) {
       if (req.headers.authorization !== client.config.adminAuth) return res.sendStatus(401);
-      if (client.bans.get(req.params.ip)) return res.status(409).send('This IP is already banned.');
+      if (client.bans.get(req.params.ip) === true) return res.status(409).send('This IP is already banned.');
       try {
         client.bans.set(req.params.ip, true);
         const Discord = require('discord.js');
@@ -143,6 +150,38 @@ class server {
         hook.send(embed);
 
         res.sendStatus(202);
+      } catch (err) {
+        res.status(500).send(`Internal Server Error | ${err}`);
+      }
+    });
+    app.delete('/api/admin/:adminID/ban/:ip', function(req, res) {
+      if (req.headers.authorization !== client.config.adminAuth) return res.sendStatus(401);
+      if (client.bans.get(req.params.ip) === false) return res.status(409).send('This IP was never banned.');
+      try {
+        client.bans.remove(req.params.ip);
+        const Discord = require('discord.js');
+        const embed = new Discord.RichEmbed();
+        const hook = new Discord.WebhookClient(client.config.APILogsID, client.config.APILogsToken);
+        embed.setTitle('ADMIN API | IP UNBAN');
+        try {
+          embed.addField('Administrator', `${client.users.get(req.params.adminID).tag} | ${req.params.adminID}`, true);
+        } catch (err) {
+          embed.addField('Administrator', err, true);
+        }
+        try {
+          embed.addField('User IP', req.params.ip, true);
+        } catch (err) {
+          embed.addField('User IP', err, true);
+        }
+        try {
+          embed.addField('Reason', req.body.reason, true);
+        } catch (err) {
+          embed.addField('Reason', err, true);
+        }
+        embed.setColor('GREEN');
+        embed.setTimestamp();
+        embed.setFooter(client.user.username, client.user.avatarURL);
+        hook.send(embed);
       } catch (err) {
         res.status(500).send(`Internal Server Error | ${err}`);
       }
@@ -306,6 +345,9 @@ class server {
     app.get('/api/interactive/pages/admin/banip', function(req, res) {
       res.sendFile(path.join(__dirname + '/interactive/ipBan.html'));
     });
+    app.get('/api/interactive/pages/admin/unbanip', function(req, res) {
+      res.sendFile(path.join(__dirname + '/interactive/ipUnban.html'));
+    });
 
     // API Interative Functions //
     const axios = require('axios');
@@ -326,6 +368,23 @@ class server {
       } catch (err) {
         res.status(500).send(`Internal Server Error | ${err}`);
       } 
+    });
+    app.post('/api/interactive/functions/admin/unbanip', async function(req, res) {
+      try {
+        const method = await axios({
+          method: 'delete',
+          url: `https://sas.libraryofcode.ml/api/admin/${req.body.adminID}/ban/${req.body.ip}`,
+          body: {
+            reason: req.body.reason
+          },
+          headers: {
+            authorization: req.body.authorization
+          }
+        });
+        await res.sendStatus(method.status);
+      } catch (err) {
+        res.status(500).send(`Internal Server Error | ${err}`);
+      }
     });
     app.post('/api/interactive/functions/selfrole', async function(req, res) {
       try {
