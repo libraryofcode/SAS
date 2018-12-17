@@ -20,6 +20,7 @@ class server {
     const app = express();
 
     app.enable('trust proxy');
+    const requestIp = require('request-ip');
     const rateLimit = require('express-rate-limit');
  
  
@@ -47,11 +48,29 @@ class server {
 
     app.all('/', function(req, res, next) {
       const Discord = require('discord.js');
+      const clientIp = requestIp.getClientIp(req); 
       const embed = new Discord.RichEmbed();
       embed.setTitle('API REQUEST RECEIVED');
-      embed.addField('Request IP', req.connection.socket.remoteAddress, true);
-      embed.addField('Paramaters', req.params, true);
-      embed.addField('Body', req.body, true);
+      try {
+        embed.addField('Method', req.method, true);
+      } catch (err) {
+        embed.addField('Method', err, true);
+      }
+      try {
+        embed.addField('Request IP', clientIp, true);
+      } catch (err) {
+        embed.addField('Request IP', err, true);
+      }
+      try {
+        embed.addField('Parameters', req.params, true);
+      } catch (err) {
+        embed.addField('Parameters', err, true);
+      }
+      try {
+        embed.addField('Body', req.body, true);
+      } catch (err) {
+        embed.addField('Body', err, true);
+      }
       embed.setTimestamp();
       embed.setFooter(client.user.username, client.user.avatarURL);
       
