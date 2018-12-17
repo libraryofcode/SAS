@@ -50,7 +50,6 @@ class server {
       const Discord = require('discord.js');
       const clientIp = requestIp.getClientIp(req);
       const realIP = clientIp.split(':').pop(); 
-      if (client.bans.get(realIP) === true) return res.status(403).send('You have been suspended from using the LOC API, please contact a Systems Administrator.');
       const embed = new Discord.RichEmbed();
       const hook = new Discord.WebhookClient(client.config.APILogsID, client.config.APILogsToken);
       embed.setTitle('API REQUEST RECEIVED');
@@ -90,7 +89,12 @@ class server {
       hook.send(embed);
       next();
     });
-
+    app.all('/api', function(req, res, next) {
+      const clientIp = requestIp.getClientIp(req);
+      const realIP = clientIp.split(':').pop(); 
+      if (client.bans.get(realIP) === true) return res.status(403).send('You have been suspended from using the LOC API, please contact a Systems Administrator.');
+      next();
+    });
     app.get('/api', function(req, res) {
       res.redirect(302, 'https://sas.libraryofcode.ml/api/ping');
     });
