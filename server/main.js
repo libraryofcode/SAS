@@ -158,7 +158,7 @@ class server {
       if (req.headers.authorization !== client.config.adminAuth) return res.sendStatus(401);
       if (client.bans.get(req.params.ip) === false) return res.status(409).send('This IP was never banned.');
       try {
-        client.bans.remove(req.params.ip);
+        client.bans.delete(req.params.ip);
         const Discord = require('discord.js');
         const embed = new Discord.RichEmbed();
         const hook = new Discord.WebhookClient(client.config.APILogsID, client.config.APILogsToken);
