@@ -299,7 +299,7 @@ class server {
     app.get('/api/interactive/pages/memberrolecolorchange', function(req, res) {
       res.sendFile(path.join(__dirname + '/interactive/roleColorChange.html'));
     });
-    app.get('/api/interactive/functions/admin/banip', function(req, res) {
+    app.get('/api/interactive/pages/admin/banip', function(req, res) {
       res.sendFile(path.join(__dirname + '/interactive/ipBan.html'));
     });
 
