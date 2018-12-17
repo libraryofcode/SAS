@@ -24,12 +24,14 @@ class server {
  
  
     const apiLimiter = rateLimit({
-      max: 5,
+      max: 4,
+      windowMs: 70000,
       message: 'Status Code 429 | You are being ratelimited; too many requests.'
     });
  
     // only apply to requests that begin with /api/
     app.use('/api/', apiLimiter);
+
 
     app.use(express_enforces_ssl());
     app.use(bodyParser.urlencoded({ extended: true }));
@@ -41,7 +43,21 @@ class server {
       res.writeHead(301, { 'Location': 'https://' + req.headers['host'] + req.url });
       res.end();
     }).listen(80);
+    
 
+    app.all('/', function(req, res, next) {
+      const Discord = require('discord.js');
+      const embed = new Discord.RichEmbed();
+      embed.setTitle('API REQUEST RECEIVED');
+      embed.addField('Request IP', req.connection.socket.remoteAddress, true);
+      embed.addField('Paramaters', req.params, true);
+      embed.addField('Body', req.body, true);
+      embed.setTimestamp();
+      embed.setFooter(client.user.username, client.user.avatarURL);
+      
+      client.channels.get('524011602174017536').send(embed);
+      next();
+    });
 
     app.get('/api', function(req, res) {
       res.redirect(302, 'https://sas.libraryofcode.ml/api/ping');
