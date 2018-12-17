@@ -383,6 +383,7 @@ class server {
         await res.sendStatus(method.status);
       } catch (err) {
         res.status(500).send(`Internal Server Error | ${err}`);
+        console.log(err);
       }
     });
     app.post('/api/interactive/functions/selfrole', async function(req, res) {
