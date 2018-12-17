@@ -46,7 +46,7 @@ class server {
     }).listen(80);
     
 
-    app.all('/', function(req, res, next) {
+    app.all('*', function(req, res, next) {
       const Discord = require('discord.js');
       const clientIp = requestIp.getClientIp(req); 
       const embed = new Discord.RichEmbed();
@@ -62,12 +62,12 @@ class server {
         embed.addField('Request IP', err, true);
       }
       try {
-        embed.addField('Parameters', req.params, true);
+        embed.addField('Parameters', JSON.stringify(req.params), true);
       } catch (err) {
         embed.addField('Parameters', err, true);
       }
       try {
-        embed.addField('Body', req.body, true);
+        embed.addField('Body', JSON.stringify(req.body), true);
       } catch (err) {
         embed.addField('Body', err, true);
       }
