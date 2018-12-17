@@ -50,11 +50,17 @@ class server {
       const Discord = require('discord.js');
       const clientIp = requestIp.getClientIp(req); 
       const embed = new Discord.RichEmbed();
+      const hook = new Discord.WebhookClient(client.config.APILogsID, client.config.APILogsToken);
       embed.setTitle('API REQUEST RECEIVED');
       try {
         embed.addField('Method', req.method, true);
       } catch (err) {
         embed.addField('Method', err, true);
+      }
+      try {
+        embed.addField('Status', req.statusCode, true);
+      } catch (err) {
+        embed.addField('Status', err, true);
       }
       try {
         embed.addField('Request IP', clientIp, true);
@@ -74,7 +80,7 @@ class server {
       embed.setTimestamp();
       embed.setFooter(client.user.username, client.user.avatarURL);
       
-      client.channels.get('524011602174017536').send(embed);
+      hook.send(embed);
       next();
     });
 
