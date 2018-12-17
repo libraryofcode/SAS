@@ -465,7 +465,7 @@ class server {
       if (req.body.authorization !== client.tokens.get(req.body.userID)) return res.sendStatus(401);
       console.log(req.body);
       console.log(`Role ID: ${req.body.roleID}`);
-      if (req.body.roleID !== '506943223680466955' && req.body.roleID !==  '472524444083159050' && req.body.roleID !== '511771731891847168' && req.body.roleID !== '519420786721947649' && req.body.roleID !== '480017323546247198') return res.status(403).send('This role cannot have it\'s color changed.');
+      if (req.body.roleID !== '506943223680466955' && req.body.roleID !==  '472524444083159050' && req.body.roleID !== '511771731891847168' && req.body.roleID !== '519420786721947649' && req.body.roleID !== '480017323546247198' && req.body.roleID !== '452182150159138837') return res.status(403).send('This role cannot have it\'s color changed.');
       if (!client.guilds.get('446067825673633794').members.get(req.body.userID).roles.get(req.body.roleID)) return res.status(401).send('Cannot edited color of specified role because you do not have it.');
       try {
         client.guilds.get('446067825673633794').roles.get(req.body.roleID).setColor(req.body.roleColor, 'Request done via Interactive API');
