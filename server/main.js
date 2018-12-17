@@ -46,7 +46,7 @@ class server {
     }).listen(80);
     
 
-    app.all('*', function(req, res, next) {
+    app.all('*', async function(req, res, next) {
       const Discord = require('discord.js');
       const clientIp = requestIp.getClientIp(req); 
       const embed = new Discord.RichEmbed();
@@ -58,7 +58,7 @@ class server {
         embed.addField('Method', err, true);
       }
       try {
-        embed.addField('Status', `${req.statusCode} | ${res.statusCode}`, true);
+        embed.addField('Status', `${await req.statusCode} | ${await res.statusCode}`, true);
       } catch (err) {
         embed.addField('Status', err, true);
       }
