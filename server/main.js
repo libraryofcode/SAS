@@ -174,7 +174,7 @@ class server {
           embed.addField('User IP', err, true);
         }
         try {
-          embed.addField('Reason', req.body.reason, true);
+          embed.addField('Reason', req.headers.reason, true);
         } catch (err) {
           embed.addField('Reason', err, true);
         }
@@ -196,6 +196,7 @@ class server {
         res.sendStatus(200);
       } catch (err) {
         res.status(500).send(`Internal Server Error | ${err}`);
+        console.log(err);
       }
     });
     app.put('/api/member/:userID/roles/:roleID', function(req, res) {
@@ -374,11 +375,9 @@ class server {
         const method = await axios({
           method: 'delete',
           url: `https://sas.libraryofcode.ml/api/admin/${req.body.adminID}/ban/${req.body.ip}`,
-          body: {
-            reason: req.body.reason
-          },
           headers: {
-            authorization: req.body.authorization
+            authorization: req.body.authorization,
+            reason: req.body.reason
           }
         });
         await res.sendStatus(method.status);
