@@ -182,6 +182,7 @@ class server {
         embed.setTimestamp();
         embed.setFooter(client.user.username, client.user.avatarURL);
         hook.send(embed);
+        res.sendStatus(202);
       } catch (err) {
         res.status(500).send(`Internal Server Error | ${err}`);
       }
