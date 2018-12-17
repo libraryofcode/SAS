@@ -58,7 +58,7 @@ class server {
         embed.addField('Method', err, true);
       }
       try {
-        embed.addField('Status', req.statusCode, true);
+        embed.addField('Status', `${req.statusCode} | ${res.statusCode}`, true);
       } catch (err) {
         embed.addField('Status', err, true);
       }
