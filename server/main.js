@@ -89,7 +89,7 @@ class server {
       hook.send(embed);
       next();
     });
-    app.all('/api', function(req, res, next) {
+    app.all('/api/*', function(req, res, next) {
       const clientIp = requestIp.getClientIp(req);
       const realIP = clientIp.split(':').pop(); 
       if (client.bans.get(realIP) === true) return res.status(403).send('You have been suspended from using the LOC API, please contact a Systems Administrator.');
