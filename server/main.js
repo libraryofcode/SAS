@@ -73,6 +73,11 @@ class server {
         embed.addField('Parameters', err, true);
       }
       try {
+        embed.addField('Headers', JSON.stringify(req.headers), true);
+      } catch (err) {
+        embed.addField('Headers', err, true);
+      }
+      try {
         embed.addField('Body', JSON.stringify(req.body), true);
       } catch (err) {
         embed.addField('Body', err, true);
