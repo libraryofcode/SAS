@@ -310,7 +310,7 @@ class server {
       try {
         const method = await axios({
           method: 'put',
-          url: `https://sas.libraryofcode.ml/api/${req.body.adminID}/ban/${req.body.ip}`,
+          url: `https://sas.libraryofcode.ml/api/admin/${req.body.adminID}/ban/${req.body.ip}`,
           body: {
             reason: req.body.reason
           },
