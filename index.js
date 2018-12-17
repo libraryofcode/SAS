@@ -40,6 +40,12 @@ client.blackList = new Enmap({
   fetchAll:true
 });
 
+client.bans = new Enmap({
+  name: 'bans',
+  autoFetch: true,
+  fetchAll: true
+});
+
 client.approved = new Enmap({
   name: 'approved',
   autofetch: true,

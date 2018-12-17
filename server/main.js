@@ -48,7 +48,9 @@ class server {
 
     app.all('*', async function(req, res, next) {
       const Discord = require('discord.js');
-      const clientIp = requestIp.getClientIp(req); 
+      const clientIp = requestIp.getClientIp(req);
+      const realIP = clientIp.split(':').pop(); 
+      if (client.bans.get(realIP) === true) return res.status(403).send('You have been suspended from using the LOC API, please contact a Systems Administrator.');
       const embed = new Discord.RichEmbed();
       const hook = new Discord.WebhookClient(client.config.APILogsID, client.config.APILogsToken);
       embed.setTitle('API REQUEST RECEIVED');
@@ -63,7 +65,7 @@ class server {
         embed.addField('Status', err, true);
       }
       try {
-        embed.addField('Request IP', clientIp, true);
+        embed.addField('Request IP', realIP, true);
       } catch (err) {
         embed.addField('Request IP', err, true);
       }
@@ -106,6 +108,40 @@ class server {
     });
     app.get('/garnet/help', function(req, res) {
       res.status(302).redirect('http://garnet.libraryofcode.ml:8800');
+    });
+    app.put('/api/admin/:adminID/ban/:ip', function(req, res) {
+      if (req.headers.authorization !== client.config.adminAuth) return res.sendStatus(401);
+      if (client.bans.get(req.params.ip)) return res.status(409).send('This IP is already banned.');
+      try {
+        client.bans.set(req.params.ip, true);
+        const Discord = require('discord.js');
+        const embed = new Discord.RichEmbed();
+        const hook = new Discord.WebhookClient(client.config.APILogsID, client.config.APILogsToken);
+        embed.setTitle('ADMIN API | IP BAN');
+        try {
+          embed.addField('Administrator', `${client.users.get(req.params.adminID).tag} | ${req.params.adminID}`, true);
+        } catch (err) {
+          embed.addField('Administrator', err, true);
+        }
+        try {
+          embed.addField('User IP', req.params.ip, true);
+        } catch (err) {
+          embed.addField('User IP', err, true);
+        }
+        try {
+          embed.addField('Reason', req.body.reason, true);
+        } catch (err) {
+          embed.addField('Reason', err, true);
+        }
+        embed.setColor('RED');
+        embed.setTimestamp();
+        embed.setFooter(client.user.username, client.user.avatarURL);
+        hook.send(embed);
+
+        res.sendStatus(202);
+      } catch (err) {
+        res.status(500).send(`Internal Server Error | ${err}`);
+      }
     });
     app.delete('/api/member/:userID/roles/:roleID', function(req, res) {
       if (req.headers.authorization !== client.tokens.get(req.params.userID)) return res.sendStatus(401);
@@ -267,6 +303,23 @@ class server {
     // API Interative Functions //
     const axios = require('axios');
     
+    app.post('/api/interactive/functions/admin/banip', async function(req, res) {
+      try {
+        const method = await axios({
+          method: 'put',
+          url: `https://sas.libraryofcode.ml/api/${req.body.adminID}/ban/${req.body.ip}`,
+          body: {
+            reason: req.body.reason
+          },
+          headers: {
+            authorization: req.body.authorization
+          }
+        });
+        await res.sendStatus(method.status);
+      } catch (err) {
+        res.status(500).send(`Internal Server Error | ${err}`);
+      } 
+    });
     app.post('/api/interactive/functions/selfrole', async function(req, res) {
       try {
         const method = await axios({
