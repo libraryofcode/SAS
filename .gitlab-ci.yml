@@ -1,0 +1,25 @@
+stages: 
+  - build
+  - deploy
+
+build:
+  stage: build
+  before_script:
+    - cd C:/Users/Administrator/Documents/SAS
+  script:
+    - npm install
+
+deploy: 
+  stage: deploy
+  before_script:
+    - cd C:/Users/Administrator/Documents/SAS
+  script:
+    - git pull
+
+restart:
+  stage: deploy
+  before_script:
+    - cd C:/Users/Administrator/Documents/SAS
+    - C:\Windows\System32\cmd.exe /k "C:\Program Files\nodejs\nodevars.bat"
+  script:
+    - pm2 restart 4
